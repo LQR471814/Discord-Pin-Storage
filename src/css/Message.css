@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "OpenSans";
+    src: url('OpenSans/opensans-regular-webfont.woff2') format('woff2'),
+         url('OpenSans/opensans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "OpenSansBold";
+    src: url('OpenSans/opensans-bold-webfont.woff2') format('woff2'),
+         url('OpenSans/opensans-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.Message {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    box-shadow: 2px 2px 5px 1px #1d1d1d;
+
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: #494949;
+    border-radius: 5px;
+
+    font-size: 10px;
+
+    border-width: 2px;
+    border-color: #272727;
+    border-style: solid;
+
+    display: flex;
+}
+
+.MessageContent {
+    font-family: "OpenSans", Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+    color: #e2e2e2;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.Author {
+    font-family: "OpenSans", Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+    color: #ffffff;
+
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.Date {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 10px;
+    color: #a3a3a3;
+
+    margin-top: 8px;
+    margin-bottom: 1px;
+}
+
+.ProfilePicture {
+    margin-top: 5px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+.MessageInformation {
+    display: flex;
+}

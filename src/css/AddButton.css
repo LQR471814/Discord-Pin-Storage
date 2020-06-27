@@ -1,0 +1,37 @@
+button {
+    transform:scale(0.9);
+
+    display:inline-block;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    margin: 5px 5px 5px 5px;
+    box-sizing: border-box;
+    border-radius:50%;
+    box-shadow: none;
+
+    color:#ffffff;
+    border:0.15em solid #8eff4c;
+    background-color: #8eff4c;
+
+    transition: all 0.2s;
+    outline:none;
+
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+}
+
+button:hover{
+    transform:scale(0.95);
+    cursor:pointer;
+    box-shadow: 4px 4px 10px 2px #1d1d1d;
+}
+
+button:active{
+    background-color: #b3ff8a;
+    border:0.15em solid #b3ff8a;
+}
