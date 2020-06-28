@@ -12,7 +12,6 @@ class App extends React.Component {
     state = {
         messages: [
             {
-                id: 0,
                 value: "Who are you?",
                 author: {
                     name: "Johnny",
@@ -28,7 +27,6 @@ class App extends React.Component {
                 }
             },
             {
-                id: 1,
                 value: "BOo!",
                 author: {
                     name: "Jane",
@@ -44,7 +42,6 @@ class App extends React.Component {
                 }
             },
             {
-                id: 2,
                 value: "AHHHHH!",
                 author: {
                     name: "Johnny",
@@ -60,7 +57,6 @@ class App extends React.Component {
                 }
             },
             {
-                id: 3,
                 value: "JFOSJDFOJO!",
                 author: {
                     name: "Jack",
@@ -76,7 +72,6 @@ class App extends React.Component {
                 }
             },
             {
-                id: 4,
                 value: "REEEEEEEE!",
                 author: {
                     name: "Jack",
@@ -92,8 +87,7 @@ class App extends React.Component {
                 }
             },
             {
-                id: 5,
-                value: "WJESAHDOFHz!",
+                value: "WJESAHDOFHASfhasdihfiahsdighz!",
                 author: {
                     name: "Jack",
                     pfp: "pfp3"
@@ -106,8 +100,83 @@ class App extends React.Component {
                     minute: 33,
                     timeOfDay: "AM"
                 }
-            }
+            },
+            {
+                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                author: {
+                    name: "Jack",
+                    pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 33,
+                    timeOfDay: "AM"
+                }
+            },
+            {
+                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                author: {
+                    name: "Jack",
+                    pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 33,
+                    timeOfDay: "AM"
+                }
+            },
+            {
+                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                author: {
+                    name: "Jack",
+                    pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 33,
+                    timeOfDay: "AM"
+                }
+            },
+            {
+                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                author: {
+                    name: "Jack",
+                    pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 33,
+                    timeOfDay: "AM"
+                }
+            },
         ]
+    }
+
+    updateState(init_value, init_author, init_date) {
+        var newState = this.state;
+        console.log(this.state)
+        newState.messages.push(
+            {
+                value: init_value,
+                author: init_author,
+                date: init_date
+            }
+        )
+        console.log(this.state)
+
+        this.setState(newState);
     }
 
     render() {
@@ -120,7 +189,7 @@ class App extends React.Component {
                     <MessageContainer messages={this.state.messages} />
                 </div>
                 <div>
-                    <AddButton />
+                    <AddButton updateState={this.updateState} />
                 </div>
             </div>
         )

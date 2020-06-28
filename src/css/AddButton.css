@@ -1,5 +1,5 @@
 button {
-    transform:scale(0.9);
+    transform:scale(0.8);
 
     display:inline-block;
 
@@ -14,8 +14,8 @@ button {
     box-shadow: none;
 
     color:#ffffff;
-    border:0.15em solid #8eff4c;
-    background-color: #8eff4c;
+    border:0.15em solid #9ee622;
+    background-color: #9ee622;
 
     transition: all 0.2s;
     outline:none;
@@ -26,7 +26,7 @@ button {
 }
 
 button:hover{
-    transform:scale(0.95);
+    transform:scale(0.85);
     cursor:pointer;
     box-shadow: 4px 4px 10px 2px #1d1d1d;
 }
