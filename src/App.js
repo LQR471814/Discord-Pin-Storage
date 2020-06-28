@@ -3,11 +3,6 @@ import MessageContainer from './components/MessageContainer'
 import AddButton from './components/AddButton'
 import "./css/App.css"
 
-// const bodyScrollLock = require('body-scroll-lock');
-// const title = document.querySelector("#Title");
-
-// bodyScrollLock.disableBodyScroll(title)
-
 class App extends React.Component {
     state = {
         messages: [
@@ -164,21 +159,6 @@ class App extends React.Component {
         ]
     }
 
-    updateState(init_value, init_author, init_date) {
-        var newState = this.state;
-        console.log(this.state)
-        newState.messages.push(
-            {
-                value: init_value,
-                author: init_author,
-                date: init_date
-            }
-        )
-        console.log(this.state)
-
-        this.setState(newState);
-    }
-
     render() {
         return (
             <div>
@@ -189,7 +169,7 @@ class App extends React.Component {
                     <MessageContainer messages={this.state.messages} />
                 </div>
                 <div>
-                    <AddButton updateState={this.updateState} />
+                    <AddButton />
                 </div>
             </div>
         )

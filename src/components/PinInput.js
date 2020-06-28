@@ -15,54 +15,49 @@ class PinInput extends React.Component {
         this.setState({value: event.target.value});
     }
     
-    handleSubmit(event) {
-        this.props.updateState(this.state.value, {
-            name: "test",
-            pfp: "pfp"
-            }, 
-            {
-                month: 6,
-                day: 26,
-                year: 2020,
-                hour: 12,
-                minute: 22,
-                timeOfDay: "PM"
-            });
-    }
+    handleSubmit(event) {}
 
     updateDimensions () {
         if (window.innerWidth < 200) {
             document.getElementById("PinFormContainer").style.left = "0%";
             document.getElementById("PinFormContainer").style.width = "60px";
             document.getElementById("PinInputField").style.width = "40px";
+            document.getElementById("Body").style.paddingTop = "260px";
         } else if (window.innerWidth < 250) {
             document.getElementById("PinFormContainer").style.left = "2%";
             document.getElementById("PinInputField").style.width = "60px";
             document.getElementById("PinFormContainer").style.width = "80px";
+            document.getElementById("Body").style.paddingTop = "190px";
         } else if (window.innerWidth < 300) {
             document.getElementById("PinFormContainer").style.left = "3%";
             document.getElementById("PinInputField").style.width = "100px";
             document.getElementById("PinFormContainer").style.width = "120px";
+            document.getElementById("Body").style.paddingTop = "170px";
         } else if (window.innerWidth < 500) {
             document.getElementById("PinFormContainer").style.left = "5%";
             document.getElementById("PinInputField").style.width = "200px";
             document.getElementById("PinFormContainer").style.width = "220px";
+            document.getElementById("Body").style.paddingTop = "150px";
         } else if (window.innerWidth < 600) {
             document.getElementById("PinFormContainer").style.left = "10%";
             document.getElementById("PinInputField").style.width = "300px";
             document.getElementById("PinFormContainer").style.width = "320px";
+            document.getElementById("Body").style.paddingTop = "120px";
         } else if (window.innerWidth < 700) {
             document.getElementById("PinFormContainer").style.left = "15%";
             document.getElementById("PinInputField").style.width = "350px";
             document.getElementById("PinFormContainer").style.width = "370px";
+            document.getElementById("Body").style.paddingTop = "90px";
         } else if (window.innerWidth < 900) {
             document.getElementById("PinFormContainer").style.left = "20%";
             document.getElementById("PinInputField").style.width = "450px";
             document.getElementById("PinFormContainer").style.width = "470px";
+            document.getElementById("Body").style.paddingTop = "90px";
         } else {
             document.getElementById("PinFormContainer").style.left = "20%";
             document.getElementById("PinInputField").style.width = "600px";
             document.getElementById("PinFormContainer").style.width = "620px";
+            document.getElementById("Body").style.paddingTop = "90px";
         }
     }
 
@@ -87,10 +82,6 @@ class PinInput extends React.Component {
             </form>
         );
     }
-}
-
-PinInput.propTypes = {
-    updateState: PropTypes.func.isRequired
 }
 
 export default PinInput;

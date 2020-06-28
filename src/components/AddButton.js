@@ -11,15 +11,11 @@ class AddButton extends React.Component {
     render () {
         return (
             <div>
-                <PinInput updateState={this.props.updateState} />
+                <PinInput />
                 <button><img src={require("../icons/PlusIcon.png")} onClick={this.handleButton} alt="" height="60" width="60"/></button>
             </div>
         );
     }
-}
-
-AddButton.propTypes = {
-    updateState: PropTypes.func.isRequired
 }
 
 export default AddButton;
