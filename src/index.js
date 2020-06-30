@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import PinInput from './components/PinInput'
 
 ReactDOM.render(
     <React.StrictMode>
         <App />
+        <PinInput />
     </React.StrictMode>,
     document.getElementById('root')
 );

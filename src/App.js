@@ -171,6 +171,7 @@ class App extends React.Component {
                 <div>
                     <AddButton />
                 </div>
+                
             </div>
         )
     }

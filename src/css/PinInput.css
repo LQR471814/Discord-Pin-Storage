@@ -14,34 +14,44 @@
     font-style: normal;
 }
 
-.PinInput {
+.PinLabel {
     display: none;
     margin-left:10px;
     margin-right:10px;
     position: fixed;
-    left: 5%;
+
+    left: 50%;
+    right: 50%;
+
+    transform: translate(-50%, -50%);
+
     top: 30%;
-    width: 85%;
+    width: 60%;
     background-color: #5e5e5e;
 
     padding-left: 15px;
-    padding-right: 72px;
+    padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
 
     border-radius: 5px;
     box-shadow: 2px 5px 10px 1px;
+
 }
 
 .InputField {
     font-family: "OpenSans", Arial, Helvetica, sans-serif;
     border-radius: 10px;
-    width: 98.5%;
+    width: 100%;
+    
     outline:none;
     background-color: #8f8f8f;
     border:0.15em solid #8f8f8f;
+    
     padding:0.25em 0.5em;
+    
     font-size: 14px;
+
     margin-top:10px;
     margin-bottom:10px;
 }
@@ -50,6 +60,9 @@
     font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
     color: #ffffff;
     font-size: 20px;
+    
+    padding-top: 7px;
+    margin-right: 10px;
 }
 
 .SubmitButton {
@@ -74,8 +87,6 @@
 
     transition: all 0.2s;
     outline:none;
-
-    position: fixed;
 }
 
 .SubmitButton:hover{
