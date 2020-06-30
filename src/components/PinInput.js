@@ -1,10 +1,10 @@
 import React from 'react';
-import "../css/PinInput.css"
+import "../css/Form.css"
 
 class PinInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ""};
+        this.state = {value: "", closeAnimation: "FormLabel"};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,7 +14,16 @@ class PinInput extends React.Component {
         this.setState({value: event.target.value});
     }
     
-    handleSubmit(event) {}
+    handleSubmit(event) {
+        document.getElementById("PinFormContainer").className = "FormLabel-close";
+        document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
+        console.log(document.getElementById("PinFormContainer").className)
+        event.preventDefault();
+    }
+
+    handleAnimationEnd(event) {
+        document.getElementById("PinFormContainer").style.display = "none";
+    }
 
     updateDimensions () {
         if (window.innerWidth < 200) {
@@ -39,6 +48,8 @@ class PinInput extends React.Component {
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
+
+        document.getElementById("PinFormContainer").style.display="none";
     }
 
     componentWillUnmount() {
@@ -48,9 +59,8 @@ class PinInput extends React.Component {
     render () {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label id="PinFormContainer" className="PinLabel">
+                <label id="PinFormContainer" className="FormLabel">
                     <span className="InputTitle">Pin</span>
-                    <br />
                     <input className="InputField" type="text" name="pin" id="PinInputField" onChange={this.handleChange} />
                     <input className="SubmitButton" type="submit" value="Add" />
                 </label>

@@ -14,31 +14,6 @@
     font-style: normal;
 }
 
-.PinLabel {
-    display: none;
-    margin-left:10px;
-    margin-right:10px;
-    position: fixed;
-
-    left: 50%;
-    right: 50%;
-
-    transform: translate(-50%, -50%);
-
-    top: 30%;
-    width: 60%;
-    background-color: #5e5e5e;
-
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-    border-radius: 5px;
-    box-shadow: 2px 5px 10px 1px;
-
-}
-
 .InputField {
     font-family: "OpenSans", Arial, Helvetica, sans-serif;
     border-radius: 10px;
@@ -98,4 +73,85 @@
 .SubmitButton:active{
     background-color: #96fa60;
     border:0.15em solid #96fa60;
+}
+
+.FormLabel {
+    display: block;
+    margin-left:10px;
+    margin-right:10px;
+    position: fixed;
+
+    left: 50%;
+    right: 50%;
+
+    transform: translate(-50%, -50%);
+
+    top: 30%;
+    width: 25%;
+    background-color: #5e5e5e;
+
+    padding-left: 15px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px 1px;
+}
+
+.FormLabel-close {
+    display: block;
+    margin-left:10px;
+    margin-right:10px;
+    position: fixed;
+    
+    left: 50%;
+    right: 50%;
+    
+    transform: translate(-50%, -50%);
+    
+    top: 30%;
+    width: 25%;
+    background-color: #5e5e5e;
+    
+    padding-left: 15px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px 1px;
+
+    animation-duration: 0.25s;
+    animation-timing-function: ease;
+    animation-name: close;
+}
+
+@keyframes close {
+    from {
+        opacity: 100%;
+    }
+    
+    to {
+        opacity: 50%;
+        transform: translate(-50%, -25%);
+    }
+}
+
+.MediumTitle {
+    font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
+    color: #45bbff;
+    font-size: 30px;
+    
+    padding-top: 7px;
+    margin-right: 10px;
+}
+
+.InputFieldLabel {
+    font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    
+    padding-top: 12px;
+    margin-right: 12px;
 }

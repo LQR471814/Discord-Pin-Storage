@@ -161,7 +161,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="AppDiv" style={{filter: "blur(5px)", transition: "all 0.2s"}}>
                 <div className="Title" id="Title">
                     <h2>A Database of Random Out of Context Messages</h2>
                 </div>

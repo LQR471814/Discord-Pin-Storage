@@ -3,7 +3,8 @@ import '../css/AddButton.css'
 
 class AddButton extends React.Component {
     handleButton(e) {
-        document.getElementById("PinFormContainer").style.display="flex";
+        document.getElementById("PinFormContainer").className = "FormLabel";
+        document.getElementById("PinFormContainer").style.display="block";
     }
     
     render () {

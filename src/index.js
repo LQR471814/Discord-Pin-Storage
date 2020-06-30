@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import PinInput from './components/PinInput'
+import RegisterForm from './components/Register'
 
 ReactDOM.render(
     <React.StrictMode>
         <App />
         <PinInput />
+        <RegisterForm />
     </React.StrictMode>,
     document.getElementById('root')
 );
