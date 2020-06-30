@@ -7,7 +7,7 @@ class App extends React.Component {
     state = {
         messages: [
             {
-                value: "Who are you?",
+                value: "Discord Pin Message System.",
                 author: {
                     name: "Johnny",
                     pfp: "pfp"
@@ -22,7 +22,7 @@ class App extends React.Component {
                 }
             },
             {
-                value: "BOo!",
+                value: "Is honestly great.",
                 author: {
                     name: "Jane",
                     pfp: "pfp2"
@@ -37,7 +37,7 @@ class App extends React.Component {
                 }
             },
             {
-                value: "AHHHHH!",
+                value: "Agreed.",
                 author: {
                     name: "Johnny",
                     pfp: "pfp"
@@ -52,7 +52,7 @@ class App extends React.Component {
                 }
             },
             {
-                value: "JFOSJDFOJO!",
+                value: "Boo!!!",
                 author: {
                     name: "Jack",
                     pfp: "pfp3"
@@ -67,7 +67,7 @@ class App extends React.Component {
                 }
             },
             {
-                value: "REEEEEEEE!",
+                value: "No?",
                 author: {
                     name: "Jack",
                     pfp: "pfp3"
@@ -82,10 +82,10 @@ class App extends React.Component {
                 }
             },
             {
-                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                value: "Absolutely not.",
                 author: {
-                    name: "Jack",
-                    pfp: "pfp3"
+                    name: "Johnny",
+                    pfp: "pfp"
                 },
                 date: {
                     month: 6,
@@ -97,10 +97,40 @@ class App extends React.Component {
                 }
             },
             {
-                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                value: "Awh...",
                 author: {
                     name: "Jack",
                     pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 35,
+                    timeOfDay: "AM"
+                }
+            },
+            {
+                value: "Fine!!!",
+                author: {
+                    name: "Jack",
+                    pfp: "pfp3"
+                },
+                date: {
+                    month: 6,
+                    day: 26,
+                    year: 2020,
+                    hour: 9,
+                    minute: 36,
+                    timeOfDay: "AM"
+                }
+            },
+            {
+                value: "Good.",
+                author: {
+                    name: "Jane",
+                    pfp: "pfp2"
                 },
                 date: {
                     month: 6,
@@ -112,39 +142,9 @@ class App extends React.Component {
                 }
             },
             {
-                value: "WJESAHDOFHASfhasdihfiahsdighz!",
+                value: "Alright.",
                 author: {
-                    name: "Jack",
-                    pfp: "pfp3"
-                },
-                date: {
-                    month: 6,
-                    day: 26,
-                    year: 2020,
-                    hour: 9,
-                    minute: 33,
-                    timeOfDay: "AM"
-                }
-            },
-            {
-                value: "WJESAHDOFHASfhasdihfiahsdighz!",
-                author: {
-                    name: "Jack",
-                    pfp: "pfp3"
-                },
-                date: {
-                    month: 6,
-                    day: 26,
-                    year: 2020,
-                    hour: 9,
-                    minute: 33,
-                    timeOfDay: "AM"
-                }
-            },
-            {
-                value: "WJESAHDOFHASfhasdihfiahsdighz!",
-                author: {
-                    name: "Jack",
+                    name: "Johnny",
                     pfp: "pfp3"
                 },
                 date: {
@@ -171,7 +171,6 @@ class App extends React.Component {
                 <div>
                     <AddButton />
                 </div>
-                
             </div>
         )
     }

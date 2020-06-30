@@ -12,6 +12,17 @@ class RegisterForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    registerFieldChecks() {
+        if(this.state.pass === "" || this.state.user === "") {
+            document.getElementById("RegisterErrorLabel").textContent = "User or password field is empty!";
+            document.getElementById("RegisterErrorLabel").style.display = "block";
+            return false;
+        }
+        document.getElementById("RegisterErrorLabel").textContent = "";
+        document.getElementById("RegisterErrorLabel").style.display = "none";
+        return true;
+    }
+
     handlePassChange(event) {
         this.setState({pass: event.target.value});
     }
@@ -21,8 +32,10 @@ class RegisterForm extends React.Component {
     }
     
     handleSubmit(event) {
-        this.setState({closeAnimation: "FormLabel-close"})
-        document.getElementById("RegisterLabel").onanimationend = this.handleAnimationEnd;
+        if (this.registerFieldChecks() === true) {
+            this.setState({closeAnimation: "FormLabel-close"})
+            document.getElementById("RegisterLabel").onanimationend = this.handleAnimationEnd;
+        }
         event.preventDefault();
     }
     
@@ -39,12 +52,13 @@ class RegisterForm extends React.Component {
                     <span className="MediumTitle">Register</span>
                     <div style={{display: "flex"}}>
                         <span className="InputFieldLabel">Username</span>
-                        <input className="InputField" type="text" name="username" id="RegisterUsernameField" onChange={this.handleChange} />
+                        <input className="InputField" type="text" name="username" id="RegisterUsernameField" onChange={this.handleUserChange} />
                     </div>
                     <div style={{display: "flex"}}>
                         <span className="InputFieldLabel">Password</span>
-                        <input className="InputField" type="password" name="password" id="RegisterPasswordField" onChange={this.handleChange} />
+                        <input className="InputField" type="password" name="password" id="RegisterPasswordField" onChange={this.handlePassChange} />
                     </div>
+                    <span className="ErrorText" id="RegisterErrorLabel"></span>
                     <input className="SubmitButton" type="submit" value="Register" />
                 </label>
             </form>

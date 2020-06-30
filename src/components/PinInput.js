@@ -8,20 +8,34 @@ class PinInput extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAnimationEnd = this.handleAnimationEnd.bind(this);
     }
     
+    registerPinChecks() {
+        if (this.state.value === "") {
+            document.getElementById("PinErrorLabel").textContent = "User or password field is empty!";
+            document.getElementById("PinErrorLabel").style.display = "block";
+            return false;
+        }
+        document.getElementById("PinErrorLabel").textContent = "";
+        document.getElementById("PinErrorLabel").style.display = "none";
+        return true;
+    }
+
     handleChange(event) {
         this.setState({value: event.target.value});
     }
     
     handleSubmit(event) {
-        document.getElementById("PinFormContainer").className = "FormLabel-close";
-        document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
-        console.log(document.getElementById("PinFormContainer").className)
+        if (this.registerPinChecks() === true) {
+            document.getElementById("PinFormContainer").className = "FormLabel-close";
+            document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
+        }
         event.preventDefault();
     }
 
     handleAnimationEnd(event) {
+        this.setState({value: ""})
         document.getElementById("PinFormContainer").style.display = "none";
     }
 
@@ -62,6 +76,7 @@ class PinInput extends React.Component {
                 <label id="PinFormContainer" className="FormLabel">
                     <span className="InputTitle">Pin</span>
                     <input className="InputField" type="text" name="pin" id="PinInputField" onChange={this.handleChange} />
+                    <span className="ErrorText" id="PinErrorLabel"></span>
                     <input className="SubmitButton" type="submit" value="Add" />
                 </label>
             </form>
