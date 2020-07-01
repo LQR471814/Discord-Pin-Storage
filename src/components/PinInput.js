@@ -33,10 +33,11 @@ class PinInput extends React.Component {
         }
         event.preventDefault();
     }
-
+    
     handleAnimationEnd(event) {
         this.setState({value: ""})
         document.getElementById("PinFormContainer").style.display = "none";
+        document.getElementById("PinInputField").value = "";
     }
 
     updateDimensions () {
