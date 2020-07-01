@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/Discord-Pin-Storage/static/css/main.b46bdfda.chunk.css",
+    "main.js": "/Discord-Pin-Storage/static/js/main.96c8fda0.chunk.js",
+    "main.js.map": "/Discord-Pin-Storage/static/js/main.96c8fda0.chunk.js.map",
+    "runtime-main.js": "/Discord-Pin-Storage/static/js/runtime-main.ac91b7a3.js",
+    "runtime-main.js.map": "/Discord-Pin-Storage/static/js/runtime-main.ac91b7a3.js.map",
+    "static/js/2.ef750d9c.chunk.js": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js",
+    "static/js/2.ef750d9c.chunk.js.map": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js.map",
+    "index.html": "/Discord-Pin-Storage/index.html",
+    "precache-manifest.b0084ae660ad4ed0755afd9bf5f766c8.js": "/Discord-Pin-Storage/precache-manifest.b0084ae660ad4ed0755afd9bf5f766c8.js",
+    "service-worker.js": "/Discord-Pin-Storage/service-worker.js",
+    "static/css/main.b46bdfda.chunk.css.map": "/Discord-Pin-Storage/static/css/main.b46bdfda.chunk.css.map",
+    "static/js/2.ef750d9c.chunk.js.LICENSE.txt": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js.LICENSE.txt",
+    "static/media/Message.css": "/Discord-Pin-Storage/static/media/opensans-regular-webfont.abba3dcd.woff2",
+    "static/media/pfp.png": "/Discord-Pin-Storage/static/media/pfp.83bd0ada.png",
+    "static/media/pfp2.png": "/Discord-Pin-Storage/static/media/pfp2.c6a40ce3.png",
+    "static/media/pfp3.png": "/Discord-Pin-Storage/static/media/pfp3.5ea083d7.png",
+    "static/media/App.css": "/Discord-Pin-Storage/static/media/robotoslab-variablefont_wght-webfont.f86ac424.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ac91b7a3.js",
+    "static/js/2.ef750d9c.chunk.js",
+    "static/css/main.b46bdfda.chunk.css",
+    "static/js/main.96c8fda0.chunk.js"
+  ]
+}
