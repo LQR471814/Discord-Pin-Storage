@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "52ae9d3663a4b4f6ce17bd7076c12017",
+    "revision": "a7af7ac94e113d34b6ff59f07212ee11",
     "url": "/Discord-Pin-Storage/index.html"
   },
   {
-    "revision": "fd0f22f1b812336fd96e",
+    "revision": "da69959e6a9a64f4a2fa",
     "url": "/Discord-Pin-Storage/static/css/main.b46bdfda.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fd0f22f1b812336fd96e",
-    "url": "/Discord-Pin-Storage/static/js/main.96c8fda0.chunk.js"
+    "revision": "da69959e6a9a64f4a2fa",
+    "url": "/Discord-Pin-Storage/static/js/main.ce0cec42.chunk.js"
   },
   {
     "revision": "1cc407ad649a6a162ce6",

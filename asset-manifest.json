@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Discord-Pin-Storage/static/css/main.b46bdfda.chunk.css",
-    "main.js": "/Discord-Pin-Storage/static/js/main.96c8fda0.chunk.js",
-    "main.js.map": "/Discord-Pin-Storage/static/js/main.96c8fda0.chunk.js.map",
+    "main.js": "/Discord-Pin-Storage/static/js/main.ce0cec42.chunk.js",
+    "main.js.map": "/Discord-Pin-Storage/static/js/main.ce0cec42.chunk.js.map",
     "runtime-main.js": "/Discord-Pin-Storage/static/js/runtime-main.ac91b7a3.js",
     "runtime-main.js.map": "/Discord-Pin-Storage/static/js/runtime-main.ac91b7a3.js.map",
     "static/js/2.ef750d9c.chunk.js": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js",
     "static/js/2.ef750d9c.chunk.js.map": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js.map",
     "index.html": "/Discord-Pin-Storage/index.html",
-    "precache-manifest.b0084ae660ad4ed0755afd9bf5f766c8.js": "/Discord-Pin-Storage/precache-manifest.b0084ae660ad4ed0755afd9bf5f766c8.js",
+    "precache-manifest.2eb127156d739f3788620199e3f77903.js": "/Discord-Pin-Storage/precache-manifest.2eb127156d739f3788620199e3f77903.js",
     "service-worker.js": "/Discord-Pin-Storage/service-worker.js",
     "static/css/main.b46bdfda.chunk.css.map": "/Discord-Pin-Storage/static/css/main.b46bdfda.chunk.css.map",
     "static/js/2.ef750d9c.chunk.js.LICENSE.txt": "/Discord-Pin-Storage/static/js/2.ef750d9c.chunk.js.LICENSE.txt",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.ac91b7a3.js",
     "static/js/2.ef750d9c.chunk.js",
     "static/css/main.b46bdfda.chunk.css",
-    "static/js/main.96c8fda0.chunk.js"
+    "static/js/main.ce0cec42.chunk.js"
   ]
 }
