@@ -33,8 +33,9 @@ class RegisterForm extends React.Component {
     
     handleSubmit(event) {
         if (this.registerFieldChecks() === true) {
-            this.setState({closeAnimation: "FormLabel-close"})
+            this.setState({closeAnimation: "FormLabel CloseForm"})
             document.getElementById("RegisterLabel").onanimationend = this.handleAnimationEnd;
+            this.forceUpdate()
         }
         event.preventDefault();
     }

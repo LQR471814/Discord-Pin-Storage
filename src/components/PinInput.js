@@ -4,7 +4,7 @@ import "../css/Form.css"
 class PinInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: "", closeAnimation: "FormLabel"};
+        this.state = {value: ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -13,7 +13,7 @@ class PinInput extends React.Component {
     
     registerPinChecks() {
         if (this.state.value === "") {
-            document.getElementById("PinErrorLabel").textContent = "User or password field is empty!";
+            document.getElementById("PinErrorLabel").textContent = "Message is empty!";
             document.getElementById("PinErrorLabel").style.display = "block";
             return false;
         }
@@ -28,8 +28,9 @@ class PinInput extends React.Component {
     
     handleSubmit(event) {
         if (this.registerPinChecks() === true) {
-            document.getElementById("PinFormContainer").className = "FormLabel-close";
+            document.getElementById("PinFormContainer").className = "FormLabel CloseForm"
             document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
+            this.forceUpdate()
         }
         event.preventDefault();
     }

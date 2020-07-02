@@ -99,29 +99,7 @@
     box-shadow: 2px 5px 10px 1px;
 }
 
-.FormLabel-close {
-    display: block;
-    margin-left:10px;
-    margin-right:10px;
-    position: fixed;
-    
-    left: 50%;
-    right: 50%;
-    
-    transform: translate(-50%, -50%);
-    
-    top: 30%;
-    width: 25%;
-    background-color: #5e5e5e;
-    
-    padding-left: 15px;
-    padding-right: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-    border-radius: 5px;
-    box-shadow: 2px 5px 10px 1px;
-
+.CloseForm {
     animation-duration: 0.25s;
     animation-timing-function: ease;
     animation-name: close;
