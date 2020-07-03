@@ -121,8 +121,20 @@
     color: #45bbff;
     font-size: 30px;
     
-    padding-top: 7px;
     margin-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.SmallTitle {
+    font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    font-size: 12px;
+    
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 .InputFieldLabel {

@@ -7,7 +7,7 @@ class PinInput extends React.Component {
         this.state = {value: ""};
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.handleAnimationEnd = this.handleAnimationEnd.bind(this);
     }
     
@@ -26,7 +26,7 @@ class PinInput extends React.Component {
         this.setState({value: event.target.value});
     }
     
-    handleSubmit(event) {
+    handleClick(event) {
         if (this.registerPinChecks() === true) {
             document.getElementById("PinFormContainer").className = "FormLabel CloseForm"
             document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
@@ -74,14 +74,12 @@ class PinInput extends React.Component {
     
     render () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label id="PinFormContainer" className="FormLabel">
-                    <span className="InputTitle">Pin</span>
-                    <input className="InputField" type="text" name="pin" id="PinInputField" onChange={this.handleChange} />
-                    <span className="ErrorText" id="PinErrorLabel"></span>
-                    <input className="SubmitButton" type="submit" value="Add" />
-                </label>
-            </form>
+            <div className="FormLabel" id="PinFormContainer">
+                <span className="InputTitle">Pin</span>
+                <input className="InputField" type="text" name="pin" id="PinInputField" onChange={this.handleChange} />
+                <span className="ErrorText" id="PinErrorLabel"></span>
+                <input className="SubmitButton" type="submit" value="Add" onClick={this.handleClick} />
+            </div>
         );
     }
 }

@@ -8,14 +8,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "body-scroll-lock": "^3.0.3",
     "react": "^16.13.1",
+    "react-coroutine": "^2.0.2",
     "react-dom": "^16.13.1",
+    "react-new-window": "^0.1.2",
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.4.1",
-    "request": "^2.88.2",
-    "uniqid": "^5.2.0",
-    "wait-on": "^5.0.1"
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "pack": "electron-builder --dir",
@@ -47,13 +46,14 @@
     ]
   },
   "devDependencies": {
-    "build": "^0.1.4",
     "concurrently": "^5.2.0",
     "custom-env": "^2.0.1",
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0",
+    "express": "^4.17.1",
     "gh-pages": "^3.1.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "wait-on": "^5.0.1"
   },
   "build": {
     "appId": "appIdNonExistent",

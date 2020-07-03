@@ -1,10 +1,15 @@
-const http = require("http");
+const express = require('express')
+const app = express()
 
 class AuthWebServer {
     constructor(host, port) {
         this.host = host;
         this.port = port;
         this.code = null;
+
+        app.get('/', this.requestListener)
+          
+        app.listen(3000)
     }
 
     parseQuery(queryString) {
@@ -15,18 +20,12 @@ class AuthWebServer {
             query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
         return query;
-    }    
-
-    start () {
-        this.server = http.createServer(requestListener);
-        this.server.listen(this.port, this.host, () => {
-            console.log(`Server is running on http://${this.host}:${this.port}`);
-        });
-
     }
 
     requestListener (req, res) {
-        this.code = parseQuery(url).code;
-        res.writeHead(200);
+        this.code = this.parseQuery(req.url).code;
+        res.send("Authorized")
     }
 }
+
+export default AuthWebServer;
