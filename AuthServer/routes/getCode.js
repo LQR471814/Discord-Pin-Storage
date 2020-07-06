@@ -13,12 +13,16 @@ function parseQuery(queryString) {
 }
 
 router.get("/", function(req, res, next) {
-    code = parseQuery(req.url.slice(1, req.url.length));
-    console.log(code)
-    if (code.fetch !== undefined) {
-        res.send(code.code)
+    var queryParams = parseQuery(req.url.slice(1, req.url.length));
+    console.log(queryParams)
+    if (queryParams.code !== undefined) {
+        code = queryParams.code;
+        console.log(code)
+        res.send("Authorized, this page will automatically close.");
+    } else if (queryParams.fetch !== undefined) {
+        res.send({code: code});
     } else {
-        res.send("Authorized.");
+        res.send("404 - This isn't the site you're looking for.");
     }
 });
 

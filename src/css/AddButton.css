@@ -14,8 +14,8 @@ button {
     box-shadow: none;
 
     color:#ffffff;
-    border:0.15em solid #9ee622;
-    background-color: #9ee622;
+    border:0.15em solid #7bcfff;
+    background-color: #7bcfff;
 
     transition: all 0.2s;
     outline:none;
@@ -23,6 +23,8 @@ button {
     position: fixed;
     right: 2%;
     bottom: 3%;
+
+    transition: all 0.2s;
 }
 
 button:hover{
@@ -32,6 +34,6 @@ button:hover{
 }
 
 button:active{
-    background-color: #b3ff8a;
-    border:0.15em solid #b3ff8a;
+    background-color: #73ee00;
+    border:0.15em solid #73ee00;
 }
