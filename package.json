@@ -15,7 +15,9 @@
     "react-new-window": "^0.1.2",
     "react-scripts": "3.4.1",
     "react-transition-group": "^4.4.1",
-    "uniqid": "^5.2.0"
+    "redux": "^4.0.5",
+    "uniqid": "^5.2.0",
+    "websocket": "^1.0.31"
   },
   "scripts": {
     "pack": "electron-builder --dir",
@@ -29,7 +31,12 @@
     "electron-start": "electron .",
     "electron-pack": "build --em.main=public/electron.js",
     "preelectron-pack": "npm run build",
-    "electron-dev": "concurrently \"SET BROWSER=none&&npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"SET BROWSER=none&&npm run electron-run\" \"wait-on http://localhost:3000 && electron .\"",
+    "client": "npm start",
+    "NoBrowser-client": "SET BROWSER=none&&npm start",
+    "authServer": "npm start --prefix AuthServer",
+    "dev": "concurrently \"npm run authServer\" \"wait-on http://localhost:9000 && npm run client\"",
+    "electron-run": "concurrently \"npm run authServer\" \"wait-on http://localhost:9000 && npm run NoBrowser-client\""
   },
   "eslintConfig": {
     "extends": "react-app"

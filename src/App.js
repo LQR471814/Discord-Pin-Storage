@@ -162,10 +162,11 @@ class App extends React.Component {
     render() {
         return (
             <div id="AppDiv" style={{filter: "blur(5px)", transition: "all 0.2s"}}>
-                <div className="Title" id="Title">
-                    <h2>A Database of Random Out of Context Messages</h2>
+                <div className="TitleContainer" id="Title">
+                    <img src={require("./logo.svg")} alt="Logo" height="60" width="60" style={{marginLeft:"10px", marginRight:"10px"}} />
+                    <span className="Title">A Database of Random Out of Context Messages</span>
                 </div>
-                <div className="Body" id="Body">
+                <div id="Body">
                     <MessageContainer messages={this.state.messages} />
                 </div>
                 <div>

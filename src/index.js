@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import PinInput from './components/PinInput'
 import RegisterForm from './components/Register'
 
+
 ReactDOM.render(
     <React.StrictMode>
         <App />

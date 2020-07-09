@@ -43,21 +43,27 @@ class PinInput extends React.Component {
 
     updateDimensions () {
         if (window.innerWidth < 200) {
-            document.getElementById("Body").style.paddingTop = "260px";
-        } else if (window.innerWidth < 250) {
-            document.getElementById("Body").style.paddingTop = "190px";
-        } else if (window.innerWidth < 300) {
-            document.getElementById("Body").style.paddingTop = "170px";
-        } else if (window.innerWidth < 500) {
-            document.getElementById("Body").style.paddingTop = "150px";
+            document.getElementById("Body").style.paddingTop = "410px";
+        } else if (window.innerWidth < 234) {
+            document.getElementById("Body").style.paddingTop = "410px";
+        } else if (window.innerWidth < 254) {
+            document.getElementById("Body").style.paddingTop = "360px";
+        } else if (window.innerWidth < 290) {
+            document.getElementById("Body").style.paddingTop = "300px";
+        } else if (window.innerWidth < 370) {
+            document.getElementById("Body").style.paddingTop = "240px";
+        } else if (window.innerWidth < 507) {
+            document.getElementById("Body").style.paddingTop = "180px";
         } else if (window.innerWidth < 600) {
-            document.getElementById("Body").style.paddingTop = "120px";
+            document.getElementById("Body").style.paddingTop = "130px";
         } else if (window.innerWidth < 700) {
-            document.getElementById("Body").style.paddingTop = "90px";
+            document.getElementById("Body").style.paddingTop = "130px";
         } else if (window.innerWidth < 900) {
-            document.getElementById("Body").style.paddingTop = "90px";
+            document.getElementById("Body").style.paddingTop = "130px";
+        } else if (window.innerWidth < 980) {
+            document.getElementById("Body").style.paddingTop = "130px";
         } else {
-            document.getElementById("Body").style.paddingTop = "90px";
+            document.getElementById("Body").style.paddingTop = "70px";
         }
     }
 

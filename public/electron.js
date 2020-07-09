@@ -13,13 +13,13 @@ function createWindow () {
 
     win.setMenu(null)
 
-    require('http').createServer(function (request, response) {
-        request.addListener('end', function () {
-            file.serve(request, response)
-        }).resume()
-    }).listen(3000)
+    // require('http').createServer(function (request, response) {
+    //     request.addListener('end', function () {
+    //         file.serve(request, response)
+    //     }).resume()
+    // }).listen(3000)
 
-    win.loadURL("localhost:3000")
+    win.loadURL("http://localhost:3000")
 
     // win.loadURL(startURL);
 }
