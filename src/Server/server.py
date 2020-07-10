@@ -4,13 +4,15 @@ import socket
 import requests
 from requests import Session
 import json
+import sys
+import time
 
 API_ENDPOINT = 'https://discord.com/api'
 
-# whitelist = [337768051799883776]
-whitelist = []
+whitelist = [337768051799883776]
+# whitelist = []
 
-connectedUsers = []
+connectedUsers = set()
 
 messages = open("messages.json", "r").read()
 
@@ -29,38 +31,36 @@ def get_ip():
 IP = get_ip()
 session = Session()
 
-async def processAPIToken(websocket, path):
+async def serverProcess(websocket, path):
     global messages
 
     while True:
-        apiToken = json.loads(await websocket.recv())
-
-        print(apiToken)
-
-        authHeaders = {
-            "Authorization": "Bearer %s" % apiToken["content"]
-        }
-
-        response = session.get("https://discord.com/api/users/@me", headers=authHeaders)
         try:
-            response.raise_for_status()
-        except Exception as err:
-            print(err)
-            break
+            userMessage = json.loads(await websocket.recv())
 
-        userData = json.loads(response.content.decode("utf8"))
+            if userMessage["type"] == "api_token":
+                authHeaders = {
+                    "Authorization": "Bearer %s" % userMessage["content"]
+                }
 
-        if int(userData["id"]) in whitelist:
-            connectedUsers.append(userData)
-            await websocket.send(json.dumps({"type": "auth", "content": "true"}))
-        else:
-            await websocket.send(json.dumps({"type": "auth", "content": "false"}))
-        
-        await websocket.send(messages)
-        
-print("Starting server!")
+                response = session.get("https://discord.com/api/users/@me", headers=authHeaders)
+                response.raise_for_status()
 
-start_server = websockets.serve(processAPIToken, IP, 4000)
+                userData = json.loads(response.content.decode("utf8"))
 
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+                if int(userData["id"]) in whitelist:
+                    await websocket.send(json.dumps({"type": "auth", "content": "true"}))
+                    await websocket.send(json.dumps({"type": "messageData", "content": messages}))
+                else:
+                    await websocket.send(json.dumps({"type": "auth", "content": "false"}))
+        except:
+            pass
+
+print("Starting server! Use [CTRL] + [C] to stop!")
+
+try:
+    start_server = websockets.serve(serverProcess, IP, 4000)
+    asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().run_forever()
+except KeyboardInterrupt:
+    sys.exit(0)

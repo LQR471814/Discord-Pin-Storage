@@ -3,31 +3,25 @@ import "../css/Form.css";
 import "../css/Dot3_Loader.css";
 import NewWindow from 'react-new-window';
 import { w3cwebsocket as WebSocketClient } from 'websocket';
+import PropTypes from 'prop-types';
 
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {pass: "", user: "", closeAnimation: "FormLabel", showWindow: false, error: ""};
+        this.state = {closeAnimation: "FormLabel", showWindow: false, error: ""};
 
         this.apiEndpoint = "https://discord.com/api";
 
         this.client = new WebSocketClient("ws://192.168.1.2:4000");
+        window.addEventListener("beforeunload", (ev) => {
+            this.client.close();
+        })
 
         this.checkingCode = false;
  
-        this.handlePassChange = this.handlePassChange.bind(this);
-        this.handleUserChange = this.handleUserChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.onCancel = this.onCancel.bind(this);
-    }
-
-    handlePassChange(event) {
-        this.setState({pass: event.target.value});
-    }
-
-    handleUserChange(event) {
-        this.setState({user: event.target.value});
     }
 
     updateAuthStatus(message) {
@@ -80,22 +74,31 @@ class RegisterForm extends React.Component {
         this.client.onopen = () => {
             console.log("Connected!")
         };
+
         this.client.onmessage = (message) => {
             var messageObj = JSON.parse(message.data);
             switch (messageObj.type) {
                 case "auth":
                     if (messageObj.content === "false") {
+                        console.log("Unauthorized")
                         document.getElementById("WaitingOnAuthAnimation").style.display = "none";
                         document.getElementById("WaitingOnAuthLabel").style.display = "none";
-                        this.setState({error: "ERROR: Unauthorized. CODE: 001"});
+                        this.setState({error: "ERROR: Unauthorized."});
                     } else {
-                        //Close the form and hide loading elements
-                        document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                        document.getElementById("WaitingOnAuthLabel").style.display = "none";
-
-                        document.getElementById("RegisterTitle").textContent = "Logging in!";
-                        this.setState({closeAnimation: "FormLabel CloseForm"});
+                        this.updateAuthStatus("Login authorized!");
                     }
+                    break;
+                case "messageData":
+                    this.updateAuthStatus("Rendering messages...");
+                    
+                    this.props.onUpdateMessages(JSON.parse(messageObj.content).messages);
+
+                    document.getElementById("WaitingOnAuthAnimation").style.display = "none";
+                    this.updateAuthStatus("");
+                    document.getElementById("RegisterTitle").textContent = "Logging in!";
+
+                    this.setState({closeAnimation: "FormLabel CloseForm"});
+
                     break;
                 default:
                     this.setState({error: "ERROR: Something unexpected occurred. CODE: 000"})
@@ -138,6 +141,10 @@ class RegisterForm extends React.Component {
             </div>
         );
     }
+}
+
+RegisterForm.propTypes = {
+    onUpdateMessages: PropTypes.func.isRequired
 }
 
 export default RegisterForm;

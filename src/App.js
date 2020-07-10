@@ -1,7 +1,9 @@
 import React from 'react';
-import MessageContainer from './components/MessageContainer'
-import AddButton from './components/AddButton'
-import "./css/App.css"
+// import MessageContainer from './components/MessageContainer';
+import MessageBody from './components/containers/MessageBody';
+import AddButton from './components/AddButton';
+import "./css/App.css";
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
     state = {
@@ -167,7 +169,8 @@ class App extends React.Component {
                     <span className="Title">A Database of Random Out of Context Messages</span>
                 </div>
                 <div id="Body">
-                    <MessageContainer messages={this.state.messages} />
+                    {/* <MessageContainer id="MessageContainer" messages={this.props.messages} /> */}
+                    <MessageBody id="MessageContainer" messages={this.props.messages} />
                 </div>
                 <div>
                     <AddButton />
@@ -175,6 +178,10 @@ class App extends React.Component {
             </div>
         )
     }
+}
+
+App.propTypes = {
+    messages: PropTypes.array.isRequired
 }
 
 export default App;

@@ -4,8 +4,20 @@ import PropTypes from 'prop-types';
 import uniqid from 'uniqid'
 
 class MessageContainer extends React.Component {
+    constructor (props) {
+        super(props);
+        
+        this.state = {messages: this.props.messages};
+        this.updateMessages = this.updateMessages.bind(this);
+    }
+    
+    updateMessages (messages) {
+        this.setState({messages: messages});
+    }
+    
     render () {
-        return this.props.messages.map((message) => (
+        const { messages } = this.props
+        return messages.map((message) => (
             <Message key={uniqid()} message={message} />
         ));
     }

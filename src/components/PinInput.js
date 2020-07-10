@@ -23,7 +23,15 @@ class PinInput extends React.Component {
     }
 
     handleChange(event) {
+        // dispatch(this.editPendingPin(event));
         this.setState({value: event.target.value});
+    }
+
+    editPendingPin(event) {
+        return {
+            type: "EDIT_PENDING_PIN",
+            value: event.target.value
+        };
     }
     
     handleClick(event) {

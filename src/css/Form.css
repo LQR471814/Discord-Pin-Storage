@@ -145,8 +145,6 @@
 }
 
 .ErrorText {
-    display: none;
-    
     font-family: "OpenSansBold", Arial, Helvetica, sans-serif;
     color: #ff0000;
     font-size: 12px;

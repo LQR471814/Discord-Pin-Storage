@@ -1,10 +1,10 @@
 {
     "messages": [
         {
-            "value": "Discord Pin Message System.",
+            "value": "I",
             "author": {
                 "name": "Johnny",
-                "pfp": ""
+                "pfp": "pfp"
             },
             "date": {
                 "month": 6,
@@ -16,10 +16,10 @@
             }
         },
         {
-            "value": "Is honestly great.",
+            "value": "don't",
             "author": {
                 "name": "Jane",
-                "pfp": ""
+                "pfp": "pfp2"
             },
             "date": {
                 "month": 6,
@@ -31,10 +31,10 @@
             }
         },
         {
-            "value": "Agreed.",
+            "value": "know",
             "author": {
                 "name": "Johnny",
-                "pfp": ""
+                "pfp": "pfp"
             },
             "date": {
                 "month": 6,
@@ -46,10 +46,10 @@
             }
         },
         {
-            "value": "Boo!!!",
+            "value": "what",
             "author": {
                 "name": "Jack",
-                "pfp": ""
+                "pfp": "pfp3"
             },
             "date": {
                 "month": 6,
@@ -61,10 +61,10 @@
             }
         },
         {
-            "value": "No?",
+            "value": "I'm",
             "author": {
                 "name": "Jack",
-                "pfp": ""
+                "pfp": "pfp3"
             },
             "date": {
                 "month": 6,
@@ -76,10 +76,10 @@
             }
         },
         {
-            "value": "Absolutely not.",
+            "value": "doing",
             "author": {
                 "name": "Johnny",
-                "pfp": ""
+                "pfp": "pfp"
             },
             "date": {
                 "month": 6,
@@ -91,10 +91,10 @@
             }
         },
         {
-            "value": "Awh...",
+            "value": "anymore",
             "author": {
                 "name": "Jack",
-                "pfp": ""
+                "pfp": "pfp3"
             },
             "date": {
                 "month": 6,
@@ -106,10 +106,10 @@
             }
         },
         {
-            "value": "Fine!!!",
+            "value": "Yup",
             "author": {
                 "name": "Jack",
-                "pfp": ""
+                "pfp": "pfp3"
             },
             "date": {
                 "month": 6,
@@ -117,36 +117,6 @@
                 "year": 2020,
                 "hour": 9,
                 "minute": 36,
-                "timeOfday": "AM"
-            }
-        },
-        {
-            "value": "Good.",
-            "author": {
-                "name": "Jane",
-                "pfp": ""
-            },
-            "date": {
-                "month": 6,
-                "day": 26,
-                "year": 2020,
-                "hour": 9,
-                "minute": 33,
-                "timeOfday": "AM"
-            }
-        },
-        {
-            "value": "Alright.",
-            "author": {
-                "name": "Johnny",
-                "pfp": ""
-            },
-            "date": {
-                "month": 6,
-                "day": 26,
-                "year": 2020,
-                "hour": 9,
-                "minute": 33,
                 "timeOfday": "AM"
             }
         }
