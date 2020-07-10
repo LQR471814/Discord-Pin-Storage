@@ -19,6 +19,7 @@ class RegisterForm extends React.Component {
         })
 
         this.checkingCode = false;
+        this.messageData = {};
  
         this.handleClick = this.handleClick.bind(this);
         this.onCancel = this.onCancel.bind(this);
@@ -85,13 +86,15 @@ class RegisterForm extends React.Component {
                         document.getElementById("WaitingOnAuthLabel").style.display = "none";
                         this.setState({error: "ERROR: Unauthorized."});
                     } else {
-                        this.updateAuthStatus("Login authorized!");
+                        this.updateAuthStatus("Login authorized! Waiting for messages...");
                     }
                     break;
                 case "messageData":
+                    this.messageData = JSON.parse(messageObj.content).messages
+                    
                     this.updateAuthStatus("Rendering messages...");
                     
-                    this.props.onUpdateMessages(JSON.parse(messageObj.content).messages);
+                    this.props.onUpdateMessages(this.messageData);
 
                     document.getElementById("WaitingOnAuthAnimation").style.display = "none";
                     this.updateAuthStatus("");

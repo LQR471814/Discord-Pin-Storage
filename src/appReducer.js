@@ -157,7 +157,6 @@ const defaultMessages = {messages: [
 function displayMessages (state = defaultMessages, action) {
     switch (action.type) {
         case SET_DISPLAY_MESSAGES:
-            console.log(action.messages)
             return Object.assign({}, state, {messages: action.messages})
         default:
             return state;

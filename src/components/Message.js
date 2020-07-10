@@ -7,7 +7,7 @@ class Message extends React.Component {
         return (
             <div className="Message">
                 <div>
-                    <img className="ProfilePicture" src={require("../pfps/" + this.props.message.author.pfp + ".png")} alt="" width="32" height="32"></img>
+                    <img className="ProfilePicture" src={this.props.message.author.pfp} alt="" width="32" height="32"></img>
                 </div>
                 <div className="Information">
                     <div className="MessageInformation">

@@ -1,20 +1,29 @@
 import asyncio
-import websockets
-import socket
-import requests
-from requests import Session
+import base64
 import json
+import os
+import socket
 import sys
 import time
+import uuid
+
+import requests
+import websockets
+from requests import Session
 
 API_ENDPOINT = 'https://discord.com/api'
 
 whitelist = [337768051799883776]
 # whitelist = []
 
-connectedUsers = set()
+ABSDIR = os.path.dirname(os.path.realpath(__file__))
 
 messages = open("messages.json", "r").read()
+userData = open(f"{ABSDIR}/userdata/users.json", "w+")
+try:
+    currentUserData = json.loads(userData.read())
+except:
+    currentUserData = {}
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -32,7 +41,8 @@ IP = get_ip()
 session = Session()
 
 async def serverProcess(websocket, path):
-    global messages
+    global userData
+    global currentUserData
 
     while True:
         try:
@@ -46,13 +56,15 @@ async def serverProcess(websocket, path):
                 response = session.get("https://discord.com/api/users/@me", headers=authHeaders)
                 response.raise_for_status()
 
-                userData = json.loads(response.content.decode("utf8"))
+                user = json.loads(response.content.decode("utf8"))
 
-                if int(userData["id"]) in whitelist:
+                if int(user["id"]) in whitelist:
                     await websocket.send(json.dumps({"type": "auth", "content": "true"}))
                     await websocket.send(json.dumps({"type": "messageData", "content": messages}))
                 else:
                     await websocket.send(json.dumps({"type": "auth", "content": "false"}))
+                
+                # pfpURL = f"https://cdn.discordapp.com/avatars/{user['id']}/{user['avatar']}.png?size=128"
         except:
             pass
 
