@@ -18,12 +18,13 @@ whitelist = [337768051799883776]
 
 ABSDIR = os.path.dirname(os.path.realpath(__file__))
 
-messages = open("messages.json", "r").read()
-userData = open(f"{ABSDIR}/userdata/users.json", "w+")
+connected = set()
+
+messages = open("messages.json", "r+")
 try:
-    currentUserData = json.loads(userData.read())
+    currentMessages = json.loads(messages.read())
 except:
-    currentUserData = {}
+    currentMessages = {"messages": []}
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -37,36 +38,79 @@ def get_ip():
         s.close()
     return IP
 
+def getUserFromToken(token):
+    authHeaders = {
+        "Authorization": "Bearer %s" % token
+    }
+
+    response = session.get("https://discord.com/api/users/@me", headers=authHeaders)
+    response.raise_for_status()
+    return response
+    
 IP = get_ip()
 session = Session()
 
 async def serverProcess(websocket, path):
-    global userData
-    global currentUserData
+    global messages
+    global connected
 
+    connected.add(websocket)
+    
     while True:
         try:
             userMessage = json.loads(await websocket.recv())
 
-            if userMessage["type"] == "api_token":
-                authHeaders = {
-                    "Authorization": "Bearer %s" % userMessage["content"]
-                }
-
-                response = session.get("https://discord.com/api/users/@me", headers=authHeaders)
-                response.raise_for_status()
+            if userMessage["type"] == "apiToken":
+                response = getUserFromToken(userMessage["content"])
 
                 user = json.loads(response.content.decode("utf8"))
 
                 if int(user["id"]) in whitelist:
                     await websocket.send(json.dumps({"type": "auth", "content": "true"}))
-                    await websocket.send(json.dumps({"type": "messageData", "content": messages}))
+                    await websocket.send(json.dumps({"type": "messageData", "content": json.dumps(currentMessages)}))
                 else:
                     await websocket.send(json.dumps({"type": "auth", "content": "false"}))
-                
-                # pfpURL = f"https://cdn.discordapp.com/avatars/{user['id']}/{user['avatar']}.png?size=128"
-        except:
-            pass
+            elif userMessage["type"] == "addMessage":
+                response = getUserFromToken(userMessage["apiToken"])
+
+                user = json.loads(response.content.decode("utf8"))
+
+                if int(user["id"]) in whitelist:
+                    currentMessages["messages"].append(
+                        {
+                            "value": userMessage["value"],
+                            "id": str(uuid.uuid1()),
+                            "author": {
+                                "name": userMessage["author"]["name"],
+                                "pfp": userMessage["author"]["pfp"]
+                            },
+                            "date": {
+                                "month": userMessage["date"]["month"],
+                                "day": userMessage["date"]["day"],
+                                "year": userMessage["date"]["year"],
+                                "hour": userMessage["date"]["hour"],
+                                "minute": userMessage["date"]["minute"],
+                                "timeOfDay": userMessage["date"]["timeOfDay"]
+                            }
+                        }
+                    )
+                    messages.seek(0)
+                    messages.write(json.dumps(currentMessages))
+                    
+                    for client in connected:
+                        await client.send(json.dumps({"type": "refreshMessages", "messages": currentMessages}))
+                else:
+                    await websocket.send(json.dumps({"type": "auth", "content": "false"}))
+            elif userMessage["type"] == "removeMessage":
+                response = getUserFromToken(userMessage["apiToken"])
+
+                user = json.loads(response.content.decode("utf8"))
+
+                if int(user["id"]) in whitelist:
+                    pass
+        except Exception as err:
+            connected.remove(websocket)
+            return
 
 print("Starting server! Use [CTRL] + [C] to stop!")
 
@@ -75,4 +119,5 @@ try:
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
 except KeyboardInterrupt:
+    messages.close()
     sys.exit(0)

@@ -79,3 +79,18 @@
 .MessageInformation {
     display: flex;
 }
+
+.DeleteButton {
+    right: 0%;
+    position: relative;
+    
+    color: #bebebe;
+    font-family: 'OpenSansBold';
+}
+
+.DeleteButton:hover {
+    color: #ffffff;
+    font-family: 'OpenSansBold';
+
+    cursor: pointer;
+}

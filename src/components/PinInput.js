@@ -1,30 +1,61 @@
 import React from 'react';
-import "../css/Form.css"
+import "../css/Form.css";
+import PropTypes from 'prop-types';
+import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 class PinInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ""};
+        this.state = {value: "", date: "", time: ""};
+
+        this.client = new WebSocketClient("ws://192.168.1.2:4000");
+
+        this.client.onmessage = (message) => {
+            var messageObj = JSON.parse(message.data);
+            switch (messageObj.type) {
+                case "refreshMessages":
+                    this.props.updateMessages(messageObj.messages.messages)
+                    break;
+                default:
+                    break;
+            }
+        }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleTimeChange = this.handleTimeChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleAnimationEnd = this.handleAnimationEnd.bind(this);
+        this.setCurrentDate = this.setCurrentDate.bind(this);
     }
     
-    registerPinChecks() {
+    messageChecks() {
+        if (this.state.time === "") {
+            document.getElementById("PinErrorLabel").textContent = "Time is empty!";
+            return false;
+        }
+        if (this.state.date === "") {
+            document.getElementById("PinErrorLabel").textContent = "Date is empty!";
+            return false;
+        }
         if (this.state.value === "") {
             document.getElementById("PinErrorLabel").textContent = "Message is empty!";
-            document.getElementById("PinErrorLabel").style.display = "block";
             return false;
         }
         document.getElementById("PinErrorLabel").textContent = "";
-        document.getElementById("PinErrorLabel").style.display = "none";
         return true;
     }
 
     handleChange(event) {
-        // dispatch(this.editPendingPin(event));
         this.setState({value: event.target.value});
+    }
+    
+    handleDateChange(event) {
+        this.setState({date: event.target.value});
+    }
+
+    handleTimeChange(event) {
+        this.setState({time: event.target.value});
     }
 
     editPendingPin(event) {
@@ -33,9 +64,118 @@ class PinInput extends React.Component {
             value: event.target.value
         };
     }
+
+    parseTime(time) {
+        try {
+            var timeArray = time.split(":");
+            var hour = parseInt(timeArray[0])
+            var minute = parseInt(timeArray[1])
+            var timeOfDay = time.slice(-2)
+        } catch {
+            return null
+        }
+        if (hour > 12 || hour < 1) {
+            return null
+        }
+        if (minute > 59 || minute < 1) {
+            return null
+        }
+        if (timeOfDay !== "PM" && timeOfDay !== "AM") {
+            return null
+        }
+        return {
+            hour: hour,
+            minute: minute,
+            timeOfDay: timeOfDay
+        }
+    }
+
+    parseDate(date) {
+        try {
+            var dateArray = date.split("/")
+            var month = parseInt(dateArray[0])
+            var day = parseInt(dateArray[1])
+            var year = parseInt(dateArray[2])
+        } catch {
+            return null
+        }
+        if (month > 12 || month < 1) {
+            return null
+        }
+        if (day > 31 || day < 1) {
+            return null
+        }
+        if (year < 0) {
+            return null
+        }
+        return {
+            month: month,
+            day: day,
+            year: year
+        }
+    }
     
-    handleClick(event) {
-        if (this.registerPinChecks() === true) {
+    setCurrentDate(event) {
+        var today = new Date();
+
+        var date = (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
+
+        var hour = today.getHours();
+        var timeOfDay = "";
+        if (hour > 12) {
+            hour = hour - 12;
+            timeOfDay = "PM";
+        } else {
+            timeOfDay = "AM";
+        }
+        
+        var time = hour + ":" + today.getMinutes() + timeOfDay;
+
+        this.setState({date: date, time: time});
+
+        document.getElementById("PinDateField").value = date;
+        document.getElementById("PinTimeField").value = time;
+        event.preventDefault();
+    }
+
+    async handleClick(event) {
+        event.persist();
+
+        if (this.messageChecks() === true) {
+            var parsedDate = this.parseDate(this.state.date);
+            if (parsedDate === null) {
+                this.setState({error: "Invalid date"});
+                return;
+            }
+            var parsedTime = this.parseTime(this.state.time);
+            if (parsedTime === null) {
+                this.setState({error: "Invalid time"});
+                return;
+            }
+            try {
+                await this.client.send(JSON.stringify({
+                    type: "addMessage",
+                    apiToken: this.props.userData.apiToken,
+                    value: this.state.value, 
+                    author: {
+                        "name": this.props.userData.username,
+                        "pfp": this.props.userData.pfp
+                    },
+                    date: {
+                        month: parsedDate.month,
+                        day: parsedDate.day,
+                        year: parsedDate.year,
+                        hour: parsedTime.hour,
+                        minute: parsedTime.minute,
+                        timeOfDay: parsedTime.timeOfDay
+                    }
+                }));
+            } catch {
+                document.getElementById("PinErrorLabel").textContent = "ERROR: Isn't connected to server! CODE: 000";
+                event.preventDefault();
+                return;
+            }
+
             document.getElementById("PinFormContainer").className = "FormLabel CloseForm"
             document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
             this.forceUpdate()
@@ -44,9 +184,11 @@ class PinInput extends React.Component {
     }
     
     handleAnimationEnd(event) {
-        this.setState({value: ""})
+        this.setState({value: "", date: "", time: ""})
         document.getElementById("PinFormContainer").style.display = "none";
         document.getElementById("PinInputField").value = "";
+        document.getElementById("PinDateField").value = "";
+        document.getElementById("PinTimeField").value = "";
     }
 
     updateDimensions () {
@@ -90,12 +232,23 @@ class PinInput extends React.Component {
         return (
             <div className="FormLabel" id="PinFormContainer">
                 <span className="InputTitle">Pin</span>
-                <input className="InputField" type="text" name="pin" id="PinInputField" onChange={this.handleChange} />
+                <div style={{display: "flex"}}>
+                    <input className="InputField" type="text" name="pin" id="PinInputField" placeholder="Message" onChange={this.handleChange} />
+                    <input className="InputField" type="text" name="date" id="PinDateField" placeholder="MM/DD/YYYY" style={{width: "45%"}} onChange={this.handleDateChange} />
+                    <input className="InputField" type="text" name="time" id="PinTimeField" placeholder="8:32PM" style={{width: "30%"}} maxLength="7" onChange={this.handleTimeChange} />
+                    <input className="SubmitButton" type="submit" value="Current Date" onClick={this.setCurrentDate} />
+                </div>
                 <span className="ErrorText" id="PinErrorLabel"></span>
                 <input className="SubmitButton" type="submit" value="Add" onClick={this.handleClick} />
             </div>
         );
     }
+}
+
+PinInput.propTypes = {
+    websocket: PropTypes.object.isRequired,
+    updateMessages: PropTypes.func.isRequired,
+    userData: PropTypes.object.isRequired
 }
 
 export default PinInput;

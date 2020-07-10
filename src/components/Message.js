@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import '../css/Message.css'
 
 class Message extends React.Component {
+    onMouseLeave () {
+        
+    }
+    
+    onMouseEnter () {
+        
+    }
+    
     render () {
         return (
-            <div className="Message">
+            <div className="Message" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
                 <div>
                     <img className="ProfilePicture" src={this.props.message.author.pfp} alt="" width="32" height="32"></img>
                 </div>
@@ -21,6 +29,10 @@ class Message extends React.Component {
                     <div>
                         <p className="MessageContent">{this.props.message.value}</p>
                     </div>
+
+                    {/* <div className="DeleteButton">
+                        <span className="DeleteButton" id="DeletePin">x</span>
+                    </div> */}
                 </div>
             </div>
         )

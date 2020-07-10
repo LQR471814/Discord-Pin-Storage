@@ -19,13 +19,13 @@ class RegisterForm extends React.Component {
         })
 
         this.checkingCode = false;
-        this.messageData = {};
+        this.userData = {};
  
         this.handleClick = this.handleClick.bind(this);
         this.onCancel = this.onCancel.bind(this);
     }
 
-    updateAuthStatus(message) {
+    updateStatus(message) {
         document.getElementById("WaitingOnAuthLabel").textContent = message;
         this.forceUpdate();
     }
@@ -52,7 +52,7 @@ class RegisterForm extends React.Component {
         
         this.setState({showWindow: false});
 
-        this.updateAuthStatus("Fetching API token...");
+        this.updateStatus("Fetching API token...");
         
         var data = new URLSearchParams();
         data.append('client_id', '725568553989832724');
@@ -62,7 +62,7 @@ class RegisterForm extends React.Component {
         data.append('redirect_uri', 'http://localhost:9000/getCode');
         data.append('scope', 'identify');
         
-        this.apiToken = await fetch(this.apiEndpoint + "/oauth2/token", {
+        await fetch(this.apiEndpoint + "/oauth2/token", {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: data
@@ -70,11 +70,20 @@ class RegisterForm extends React.Component {
         .then(response => response.json())
         .then(data => this.tokenData = data);
 
-        this.updateAuthStatus("Connecting to Server...");
+        this.updateStatus("Getting user data...")
 
-        this.client.onopen = () => {
-            console.log("Connected!")
-        };
+        await fetch("https://discord.com/api/users/@me", {
+            method: 'GET',
+            headers: { Authorization: "Bearer " + this.tokenData.access_token }
+        })
+        .then(response => response.json())
+        .then(data => this.userData = data);
+
+        this.props.updateUserData(this.userData.username, "https://cdn.discordapp.com/avatars/" + this.userData.id + "/" + this.userData.avatar + ".png?size=128", this.tokenData.access_token)
+
+        this.updateStatus("Connecting to Server...");
+
+        this.client.onopen = () => {};
 
         this.client.onmessage = (message) => {
             var messageObj = JSON.parse(message.data);
@@ -86,32 +95,31 @@ class RegisterForm extends React.Component {
                         document.getElementById("WaitingOnAuthLabel").style.display = "none";
                         this.setState({error: "ERROR: Unauthorized."});
                     } else {
-                        this.updateAuthStatus("Login authorized! Waiting for messages...");
+                        this.updateStatus("Login authorized! Waiting for messages...");
                     }
                     break;
                 case "messageData":
-                    this.messageData = JSON.parse(messageObj.content).messages
+                    this.updateStatus("Rendering messages...");
                     
-                    this.updateAuthStatus("Rendering messages...");
-                    
-                    this.props.onUpdateMessages(this.messageData);
+                    this.props.updateMessages(JSON.parse(messageObj.content).messages);
 
                     document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                    this.updateAuthStatus("");
+                    this.updateStatus("");
                     document.getElementById("RegisterTitle").textContent = "Logging in!";
 
                     this.setState({closeAnimation: "FormLabel CloseForm"});
 
                     break;
                 default:
-                    this.setState({error: "ERROR: Something unexpected occurred. CODE: 000"})
                     break;
             }
         };
         
-        this.updateAuthStatus("Relaying API token to Server...");
+        this.props.updateWebsocket(this.client);
+        
+        this.updateStatus("Relaying API token to Server...");
 
-        this.client.send(JSON.stringify({type: "api_token", content: this.tokenData.access_token}));
+        this.client.send(JSON.stringify({type: "apiToken", content: this.tokenData.access_token}));
 
         event.preventDefault();
     }
@@ -147,7 +155,9 @@ class RegisterForm extends React.Component {
 }
 
 RegisterForm.propTypes = {
-    onUpdateMessages: PropTypes.func.isRequired
+    updateMessages: PropTypes.func.isRequired,
+    updateWebsocket: PropTypes.func.isRequired,
+    updateUserData: PropTypes.func.isRequired
 }
 
 export default RegisterForm;
