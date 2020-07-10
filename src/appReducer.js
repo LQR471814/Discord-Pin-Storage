@@ -1,10 +1,4 @@
-import {
-    MODIFY_PENDING_PIN,
-    SET_DISPLAY_MESSAGES,
-    SET_AUTH_WINDOW_VISIBILITY,
-    SET_REGISTER_CSS,
-    SET_REGISTER_ERROR_LABEL
-} from './actions'
+import { SET_DISPLAY_MESSAGES } from './actions'
 import { combineReducers } from 'redux';
 
 const defaultMessages = {messages: [
@@ -170,55 +164,8 @@ function displayMessages (state = defaultMessages, action) {
     }
 }
 
-function pinValue (state = "", action) {
-    switch (action.type) {
-        case MODIFY_PENDING_PIN:
-            return action.value
-        default:
-            return state
-    }
-}
-
-function registerCSS (state = "FormLabel", action) {
-    switch (action.type) {
-        case SET_REGISTER_CSS:
-            return action.value
-        default:
-            return state
-    }
-}
-
-function registerAuthWindowVisibility (state = false, action) {
-    switch (action.type) {
-        case SET_AUTH_WINDOW_VISIBILITY:
-            return action.bool
-        default:
-            return state
-    }
-}
-
-function registerErrorLabel (state = "", action) {
-    switch (action.type) {
-        case SET_REGISTER_ERROR_LABEL:
-            return action.value
-        default:
-            return state
-    }
-}
-
-// function discordPinStorage (state = {}, action) {
-//     return {
-//         displayMessages: displayMessages(state.messages),
-//         pinValue: pinValue(state.pinValue)
-//     }
-// }
-
 const discordPinStorage = combineReducers({
-    displayMessages,
-    pinValue,
-    registerCSS,
-    registerAuthWindowVisibility,
-    registerErrorLabel
+    displayMessages
 })
 
 export default discordPinStorage
