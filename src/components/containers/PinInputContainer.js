@@ -3,7 +3,7 @@ import PinInput from '../PinInput'
 
 
 const mapStateToProps = state => ({
-    websocket: state.setCommWebsocket,
+    websocket: state.websocketInit,
     userData: state.setUserData
 })
 

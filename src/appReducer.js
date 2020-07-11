@@ -1,5 +1,6 @@
-import { SET_DISPLAY_MESSAGES, SET_USER_DATA } from './actions'
+import { SET_DISPLAY_MESSAGES, SET_USER_DATA, WEBSOCKET } from './actions';
 import { combineReducers } from 'redux';
+import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 const defaultMessages = {
     messages: [
@@ -170,13 +171,23 @@ function setUserData (state = {}, action) {
         case SET_USER_DATA:
             return Object.assign({}, state, {username: action.username, pfp: action.pfp, apiToken: action.apiToken})
         default:
-            return state
+            return state;
+    }
+}
+
+function websocketInit (state = new WebSocketClient("ws://192.168.1.2:4000"), action) {
+    switch(action.type) {
+        case WEBSOCKET:
+            return action.websocket
+        default:
+            return state;
     }
 }
 
 const discordPinStorage = combineReducers({
     displayMessages,
-    setUserData
+    setUserData,
+    websocketInit
 })
 
 export default discordPinStorage

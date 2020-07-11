@@ -26,17 +26,19 @@ class Message extends React.Component {
         e.preventDefault();
     }
 
-    handleDelete (e) {
-        
+    async handleDelete (event) {
+        event.persist();
+        await this.props.websocket.send(JSON.stringify({type: "deleteMessage", apiToken: this.props.userData.apiToken, message: this.props.message}));
+        event.preventDefault();
     }
-    
+
     render () {
         return (
             <div className="Message" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
                 <div>
                     <img className="ProfilePicture" src={this.props.message.author.pfp} onDragStart={this.onDrag} alt="" width="32" height="32" style={{userSelect: "none"}} />
                 </div>
-                <div className="Information" style={{width: "100%"}}>
+                <div className="Information" id="MessageText" style={{width: "100%"}}>
                     <div className="MessageInformation">
                         <div style={{display: "flex"}}>
                             <div>
@@ -58,7 +60,9 @@ class Message extends React.Component {
 }
 
 Message.propTypes = {
-    message: PropTypes.object.isRequired
+    message: PropTypes.object.isRequired,
+    websocket: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired
 }
 
 export default Message

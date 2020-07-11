@@ -18,13 +18,15 @@ class MessageContainer extends React.Component {
     render () {
         const { messages } = this.props
         return messages.map((message) => (
-            <Message key={uniqid()} message={message} />
+            <Message key={uniqid()} websocket={this.props.websocket} message={message} userData={this.props.userData} />
             ));
     }
 }
 
 MessageContainer.propTypes = {
-    messages: PropTypes.array.isRequired
+    messages: PropTypes.array.isRequired,
+    websocket: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired
 }
 
 export default MessageContainer;

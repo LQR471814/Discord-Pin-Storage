@@ -2,7 +2,6 @@ import React from 'react';
 import "../css/Form.css";
 import "../css/Dot3_Loader.css";
 import NewWindow from 'react-new-window';
-import { w3cwebsocket as WebSocketClient } from 'websocket';
 import PropTypes from 'prop-types';
 
 class RegisterForm extends React.Component {
@@ -13,7 +12,7 @@ class RegisterForm extends React.Component {
 
         this.apiEndpoint = "https://discord.com/api";
 
-        this.client = new WebSocketClient("ws://192.168.1.2:4000");
+        this.client = this.props.websocket;
         window.addEventListener("beforeunload", (ev) => {
             this.client.close();
         })
@@ -83,8 +82,6 @@ class RegisterForm extends React.Component {
 
         this.updateStatus("Connecting to Server...");
 
-        this.client.onopen = () => {};
-
         this.client.onmessage = (message) => {
             var messageObj = JSON.parse(message.data);
             switch (messageObj.type) {
@@ -110,12 +107,13 @@ class RegisterForm extends React.Component {
                     this.setState({closeAnimation: "FormLabel CloseForm"});
 
                     break;
+                case "refreshMessages":
+                    this.props.updateMessages(messageObj.messages.messages)
+                    break;
                 default:
                     break;
             }
         };
-        
-        this.props.updateWebsocket(this.client);
         
         this.updateStatus("Relaying API token to Server...");
 
@@ -142,7 +140,7 @@ class RegisterForm extends React.Component {
 
     render () {
         return (
-            <div className={this.state.closeAnimation} id="RegisterLabel" onAnimationEnd={this.handleAnimationEnd}>
+            <div className={this.state.closeAnimation} style={{width: "25%"}} id="RegisterLabel" onAnimationEnd={this.handleAnimationEnd}>
                 <p className="MediumTitle" id="RegisterTitle">Login with Discord</p>
                 <p className="ErrorText" id="RegisterErrorLabel">{this.state.error}</p>
                 <p className="SmallTitle" id="WaitingOnAuthLabel" style={{display: "none"}}>Waiting for authorization with discord API...</p>
@@ -156,8 +154,8 @@ class RegisterForm extends React.Component {
 
 RegisterForm.propTypes = {
     updateMessages: PropTypes.func.isRequired,
-    updateWebsocket: PropTypes.func.isRequired,
-    updateUserData: PropTypes.func.isRequired
+    updateUserData: PropTypes.func.isRequired,
+    websocket: PropTypes.object.isRequired
 }
 
 export default RegisterForm;

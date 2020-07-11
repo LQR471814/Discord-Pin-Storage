@@ -1,25 +1,13 @@
 import React from 'react';
 import "../css/Form.css";
 import PropTypes from 'prop-types';
-import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 class PinInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {value: "", date: "", time: ""};
 
-        this.client = new WebSocketClient("ws://192.168.1.2:4000");
-
-        this.client.onmessage = (message) => {
-            var messageObj = JSON.parse(message.data);
-            switch (messageObj.type) {
-                case "refreshMessages":
-                    this.props.updateMessages(messageObj.messages.messages)
-                    break;
-                default:
-                    break;
-            }
-        }
+        this.client = this.props.websocket;
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -240,7 +228,7 @@ class PinInput extends React.Component {
                 <span className="InputTitle">Pin</span>
                 <div style={{display: "flex"}}>
                     <input className="InputField" type="text" name="pin" id="PinInputField" placeholder="Message" onChange={this.handleChange} autoFocus />
-                    <input className="InputField" type="text" name="date" id="PinDateField" placeholder="MM/DD/YYYY" style={{width: "50%"}} onChange={this.handleDateChange} />
+                    <input className="InputField" type="text" name="date" id="PinDateField" placeholder="MM/DD/YYYY" style={{width: "30%"}} onChange={this.handleDateChange} />
                     <input className="InputField" type="text" name="time" id="PinTimeField" placeholder="8:32PM" style={{width: "40%"}} maxLength="7" onChange={this.handleTimeChange} />
                     <input className="SubmitButton" type="submit" value="Current Date" onClick={this.setCurrentDate} />
                 </div>

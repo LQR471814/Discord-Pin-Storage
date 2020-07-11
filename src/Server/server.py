@@ -4,6 +4,7 @@ import json
 import os
 import socket
 import sys
+import threading
 import time
 
 import requests
@@ -12,17 +13,24 @@ from requests import Session
 
 API_ENDPOINT = 'https://discord.com/api'
 
-whitelist = [337768051799883776]
-# whitelist = []
+whitelistFile = open("whitelist.json", "r")
+
+whitelist = json.loads(whitelistFile.read())["whitelist"]
 
 ABSDIR = os.path.dirname(os.path.realpath(__file__))
 
 connected = set()
 
-messages = open("messages.json", "r+")
+fileLock = asyncio.Lock()
+
 try:
+    messages = open("messages.json", "r")
     currentMessages = json.loads(messages.read())
-except:
+    messages.close()
+    messages = open("messages.json", "w")
+except Exception as err:
+    print(err)
+    messages = open("messages.json", "w")
     currentMessages = {"messages": []}
 
 def get_ip():
@@ -52,6 +60,8 @@ session = Session()
 async def serverProcess(websocket, path):
     global messages
     global connected
+    global currentMessages
+    global fileLock
 
     connected.add(websocket)
     
@@ -92,21 +102,38 @@ async def serverProcess(websocket, path):
                             }
                         }
                     )
+
+                    await fileLock.acquire()
                     messages.seek(0)
+                    messages.truncate(0)
                     messages.write(json.dumps(currentMessages))
+                    fileLock.release()
                     
                     for client in connected:
                         await client.send(json.dumps({"type": "refreshMessages", "messages": currentMessages}))
                 else:
                     await websocket.send(json.dumps({"type": "auth", "content": "false"}))
-            elif userMessage["type"] == "removeMessage":
+            elif userMessage["type"] == "deleteMessage":
                 response = getUserFromToken(userMessage["apiToken"])
 
                 user = json.loads(response.content.decode("utf8"))
 
                 if int(user["id"]) in whitelist:
-                    pass
+                    currentMessages["messages"].remove(userMessage["message"])
+                    
+                    await fileLock.acquire()
+                    messages.seek(0)
+                    messages.truncate(0)
+                    messages.write(json.dumps(currentMessages))
+                    fileLock.release()
+
+                    for client in connected:
+                        await client.send(json.dumps({"type": "refreshMessages", "messages": currentMessages}))
         except Exception as err:
+            try:
+                fileLock.release()
+            except:
+                pass
             connected.remove(websocket)
             return
 
@@ -117,5 +144,9 @@ try:
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
 except KeyboardInterrupt:
+    messages.seek(0)
+    messages.truncate(0)
+    messages.write(json.dumps(currentMessages))
     messages.close()
+    whitelistFile.close()
     sys.exit(0)

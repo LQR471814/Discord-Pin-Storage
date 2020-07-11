@@ -17,7 +17,7 @@ class App extends React.Component {
                     <span className="Title">A Database of Random Out of Context Messages</span>
                 </div>
                 <div id="Body">
-                    <MessageBody id="MessageContainer" messages={this.props.messages} />
+                    <MessageBody id="MessageContainer" />
                 </div>
                 <div>
                     <AddButton />
