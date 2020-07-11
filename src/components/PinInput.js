@@ -21,6 +21,7 @@ class PinInput extends React.Component {
             }
         }
 
+        this.handleCancel = this.handleCancel.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
@@ -191,6 +192,11 @@ class PinInput extends React.Component {
         document.getElementById("PinTimeField").value = "";
     }
 
+    handleCancel (event) {
+        document.getElementById("PinFormContainer").className = "FormLabel CloseForm";
+        document.getElementById("PinFormContainer").onanimationend = this.handleAnimationEnd;
+    }
+
     updateDimensions () {
         if (window.innerWidth < 200) {
             document.getElementById("Body").style.paddingTop = "410px";
@@ -233,13 +239,16 @@ class PinInput extends React.Component {
             <div className="FormLabel" id="PinFormContainer">
                 <span className="InputTitle">Pin</span>
                 <div style={{display: "flex"}}>
-                    <input className="InputField" type="text" name="pin" id="PinInputField" placeholder="Message" onChange={this.handleChange} />
-                    <input className="InputField" type="text" name="date" id="PinDateField" placeholder="MM/DD/YYYY" style={{width: "45%"}} onChange={this.handleDateChange} />
-                    <input className="InputField" type="text" name="time" id="PinTimeField" placeholder="8:32PM" style={{width: "30%"}} maxLength="7" onChange={this.handleTimeChange} />
+                    <input className="InputField" type="text" name="pin" id="PinInputField" placeholder="Message" onChange={this.handleChange} autoFocus />
+                    <input className="InputField" type="text" name="date" id="PinDateField" placeholder="MM/DD/YYYY" style={{width: "50%"}} onChange={this.handleDateChange} />
+                    <input className="InputField" type="text" name="time" id="PinTimeField" placeholder="8:32PM" style={{width: "40%"}} maxLength="7" onChange={this.handleTimeChange} />
                     <input className="SubmitButton" type="submit" value="Current Date" onClick={this.setCurrentDate} />
                 </div>
-                <span className="ErrorText" id="PinErrorLabel"></span>
-                <input className="SubmitButton" type="submit" value="Add" onClick={this.handleClick} />
+                <p className="ErrorText" id="PinErrorLabel" />
+                <div style={{display: "flex", width: "100%", justifyContent: "space-between"}}>
+                    <input className="SubmitButton" type="submit" value="Add" onClick={this.handleClick} />
+                    <input className="SubmitButton" type="submit" value="Cancel" onClick={this.handleCancel} />
+                </div>
             </div>
         );
     }

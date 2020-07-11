@@ -1,7 +1,7 @@
 import React from 'react';
 import Message from './Message'
 import PropTypes from 'prop-types';
-import uniqid from 'uniqid'
+import uniqid from 'uniqid';
 
 class MessageContainer extends React.Component {
     constructor (props) {
@@ -19,7 +19,7 @@ class MessageContainer extends React.Component {
         const { messages } = this.props
         return messages.map((message) => (
             <Message key={uniqid()} message={message} />
-        ));
+            ));
     }
 }
 

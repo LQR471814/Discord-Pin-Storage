@@ -5,7 +5,6 @@ import os
 import socket
 import sys
 import time
-import uuid
 
 import requests
 import websockets
@@ -79,7 +78,6 @@ async def serverProcess(websocket, path):
                     currentMessages["messages"].append(
                         {
                             "value": userMessage["value"],
-                            "id": str(uuid.uuid1()),
                             "author": {
                                 "name": userMessage["author"]["name"],
                                 "pfp": userMessage["author"]["pfp"]

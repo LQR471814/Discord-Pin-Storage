@@ -97,7 +97,7 @@
     background-color: #5e5e5e;
 
     padding-left: 15px;
-    padding-right: 40px;
+    padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -157,5 +157,6 @@
     color: #ff0000;
     font-size: 12px;
 
+    margin-top: 0;
     margin-bottom: 5px;
 }
