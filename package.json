@@ -1,7 +1,7 @@
 {
   "name": "discord-pin-database",
   "version": "0.1.0",
-  "main": "./public/electron.js",
+  "main": "./index.js",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -24,19 +24,9 @@
     "dist": "electron-builder",
     "start": "react-scripts start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron-start": "electron .",
-    "electron-pack": "build --em.main=public/electron.js",
-    "preelectron-pack": "npm run build",
-    "electron-dev": "concurrently \"SET BROWSER=none&&npm run electron-run\" \"wait-on http://localhost:3000 && electron .\"",
-    "client": "npm start",
-    "NoBrowser-client": "SET BROWSER=none&&npm start",
-    "authServer": "npm start --prefix AuthServer",
-    "dev": "concurrently \"npm run authServer\" \"wait-on http://localhost:9000 && npm run client\"",
-    "electron-run": "concurrently \"npm run authServer\" \"wait-on http://localhost:9000 && npm run NoBrowser-client\""
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,10 +46,7 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "custom-env": "^2.0.1",
-    "electron": "^9.0.5",
-    "electron-builder": "^22.7.0",
     "express": "^4.17.1",
-    "gh-pages": "^3.1.0",
     "typescript": "^3.9.6",
     "wait-on": "^5.0.1"
   },
