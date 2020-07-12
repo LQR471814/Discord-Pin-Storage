@@ -37,11 +37,14 @@ class RegisterForm extends React.Component {
         document.getElementById("WaitingOnAuthAnimation").style.display = "block";
         document.getElementById("WaitingOnAuthLabel").style.display = "block";
         
-        this.code = {code: null};
+        this.code = {code: ""};
         
         this.checkingCode = true;
-        while(this.code.code == null) {
-            this.code = await fetch('http://localhost:9000/getCode?fetch=')
+        while (this.code.code === "") {
+            this.code = await fetch('http://localhost:9000/?fetch', {
+                method: 'GET',
+                contentType: "application/json"
+            })
             .then(response => response.json())
             .then(code => {return code;})
             .catch((error) => {console.log(error)});
@@ -58,7 +61,7 @@ class RegisterForm extends React.Component {
         data.append('client_secret', '-8yd2RwRURx9GMROrTswXAkPCji-f8nW');
         data.append('grant_type', 'authorization_code');
         data.append('code', this.code.code);
-        data.append('redirect_uri', 'http://localhost:9000/getCode');
+        data.append('redirect_uri', 'http://localhost:9000');
         data.append('scope', 'identify');
         
         await fetch(this.apiEndpoint + "/oauth2/token", {
@@ -146,7 +149,7 @@ class RegisterForm extends React.Component {
                 <p className="SmallTitle" id="WaitingOnAuthLabel" style={{display: "none"}}>Waiting for authorization with discord API...</p>
                 <div className="loader" id="WaitingOnAuthAnimation">Loading...</div>
                 <input className="SubmitButton" id="AuthorizeButton" value="Login" type="submit" onClick={this.handleClick} />
-                {this.state.showWindow && (<NewWindow url="https://discord.com/api/oauth2/authorize?client_id=725568553989832724&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2FgetCode&response_type=code&scope=identify" onBlock={this.handleWindowBlocked} onUnload={this.onCancel} />)}
+                {this.state.showWindow && (<NewWindow url="https://discord.com/api/oauth2/authorize?client_id=725568553989832724&redirect_uri=http%3A%2F%2Flocalhost%3A9000&response_type=code&scope=identify" onBlock={this.handleWindowBlocked} onUnload={this.onCancel} />)}
             </div>
         );
     }

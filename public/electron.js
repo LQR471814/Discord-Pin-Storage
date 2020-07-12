@@ -1,17 +1,14 @@
-const path = require('path')
 const { app, BrowserWindow } = require('electron')
-
-const url = require('url')
 
 function createWindow () {
     // Create the browser window.
     const win = new BrowserWindow({
-    width: 1280,
+    width: 1300,
     height: 720,
     webPreferences: {nodeIntegration: true}
     })
 
-    win.setMenu(null)
+    // win.setMenu(null)
 
     // require('http').createServer(function (request, response) {
     //     request.addListener('end', function () {

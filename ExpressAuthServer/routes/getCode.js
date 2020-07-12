@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var code = null;
+var code = undefined;
 
 function parseQuery(queryString) {
     var query = {};

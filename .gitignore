@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #AuthWebServer
-AuthServer/node_modules/
+ExpressAuthServer/node_modules/
