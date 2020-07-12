@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "./static/css/main.eaec6aa6.chunk.css",
+    "main.js": "./static/js/main.bf71a604.chunk.js",
+    "main.js.map": "./static/js/main.bf71a604.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.c9fc032f.js",
+    "runtime-main.js.map": "./static/js/runtime-main.c9fc032f.js.map",
+    "static/js/2.c49e02ed.chunk.js": "./static/js/2.c49e02ed.chunk.js",
+    "static/js/2.c49e02ed.chunk.js.map": "./static/js/2.c49e02ed.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.37c2e0dd63341a7296ce7e62c73d58c9.js": "./precache-manifest.37c2e0dd63341a7296ce7e62c73d58c9.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.eaec6aa6.chunk.css.map": "./static/css/main.eaec6aa6.chunk.css.map",
+    "static/js/2.c49e02ed.chunk.js.LICENSE.txt": "./static/js/2.c49e02ed.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "./static/media/logo.b1b62f98.svg",
+    "static/media/App.css": "./static/media/opensans-bold-webfont.cb4b9405.woff2",
+    "static/media/Message.css": "./static/media/opensans-regular-webfont.abba3dcd.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9fc032f.js",
+    "static/js/2.c49e02ed.chunk.js",
+    "static/css/main.eaec6aa6.chunk.css",
+    "static/js/main.bf71a604.chunk.js"
+  ]
+}

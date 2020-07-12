@@ -25,3 +25,6 @@ yarn-error.log*
 
 #AuthWebServer
 ExpressAuthServer/node_modules/
+desktop-app/__pycache__/
+desktop-app/dist/
+desktop-app/build/
