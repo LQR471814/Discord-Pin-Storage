@@ -13,8 +13,16 @@ from requests import Session
 
 API_ENDPOINT = 'https://discord.com/api'
 
-whitelistFile = open("whitelist.json", "r")
-
+try:
+    whitelistFile = open("whitelist.json", "r")
+except Exception as err:
+    print("[WARNING] " + str(err))
+    print("This may be caused by the lack of a whitelist file, add some people to whitelist.json and restart the server.")
+    tmpFile = open("whitelist.json", "w")
+    tmpFile.write(json.dumps({"whitelist": []}))
+    tmpFile.close()
+    sys.exit(0)
+    
 whitelist = json.loads(whitelistFile.read())["whitelist"]
 
 ABSDIR = os.path.dirname(os.path.realpath(__file__))

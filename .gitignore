@@ -23,8 +23,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#AuthWebServer
+# AuthWebServer
 ExpressAuthServer/node_modules/
 desktop-app/__pycache__/
 desktop-app/dist/
 desktop-app/build/
+
+# Server
+Server/__pycache__/
+Server/build/
+Server/dist/

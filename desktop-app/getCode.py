@@ -8,6 +8,12 @@ import json
 
 code = ""
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 def main():
     app = flask.Flask(__name__)
     cors = CORS(app)
@@ -27,6 +33,11 @@ def main():
             return res
         else:
             return "404 - Unknown Querystring"
+
+    @app.route('/shutdown', methods=['POST'])
+    def shutdown():
+        shutdown_server()
+        return 'Server shutting down...'
 
     app.run(host="127.0.0.1", port=9000)
 
