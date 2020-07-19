@@ -175,10 +175,10 @@ function setUserData (state = {}, action) {
     }
 }
 
-function websocketInit (state = new WebSocketClient("ws://192.168.1.2:4000"), action) {
+function websocketInit (state = {websocket: new WebSocketClient("ws://127.0.0.1")}, action) {
     switch(action.type) {
         case WEBSOCKET:
-            return action.websocket
+            return action.websocket;
         default:
             return state;
     }

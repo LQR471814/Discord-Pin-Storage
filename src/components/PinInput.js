@@ -7,8 +7,6 @@ class PinInput extends React.Component {
         super(props);
         this.state = {value: "", date: "", time: ""};
 
-        this.client = this.props.websocket;
-
         this.handleCancel = this.handleCancel.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -142,7 +140,8 @@ class PinInput extends React.Component {
                 return;
             }
             try {
-                await this.client.send(JSON.stringify({
+                console.log()
+                await this.props.websocket.send(JSON.stringify({
                     type: "addMessage",
                     apiToken: this.props.userData.apiToken,
                     value: this.state.value, 

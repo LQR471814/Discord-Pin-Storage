@@ -3,12 +3,13 @@ import "../css/Form.css";
 import "../css/Dot3_Loader.css";
 import NewWindow from 'react-new-window';
 import PropTypes from 'prop-types';
+import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {closeAnimation: "FormLabel", showWindow: false, error: ""};
+        this.state = {closeAnimation: "FormLabel", showWindow: false, error: "", serverAddress: ""};
 
         this.apiEndpoint = "https://discord.com/api";
 
@@ -21,6 +22,7 @@ class RegisterForm extends React.Component {
         this.userData = {};
  
         this.handleClick = this.handleClick.bind(this);
+        this.handleServerField = this.handleServerField.bind(this);
         this.onCancel = this.onCancel.bind(this);
     }
 
@@ -29,11 +31,59 @@ class RegisterForm extends React.Component {
         this.forceUpdate();
     }
 
+    handleServerField(event) {
+        this.setState({serverAddress: event.target.value});
+        this.setState({error: ""});
+    }
+
     async handleClick(event) {
         event.persist();
+
+        try {
+            var address = "ws://" + this.state.serverAddress.replace("http://", "").replace("ws://", "");
+            var client = new WebSocketClient(address)
+            client.onmessage = (message) => {
+                var messageObj = JSON.parse(message.data);
+                switch (messageObj.type) {
+                    case "auth":
+                        if (messageObj.content === "false") {
+                            console.log("Unauthorized")
+                            document.getElementById("WaitingOnAuthAnimation").style.display = "none";
+                            document.getElementById("WaitingOnAuthLabel").style.display = "none";
+                            this.setState({error: "ERROR: Unauthorized."});
+                        } else {
+                            this.updateStatus("Login authorized! Waiting for messages...");
+                        }
+                        break;
+                    case "messageData":
+                        this.updateStatus("Rendering messages...");
+                        
+                        this.props.updateMessages(JSON.parse(messageObj.content).messages);
+    
+                        document.getElementById("WaitingOnAuthAnimation").style.display = "none";
+                        this.updateStatus("");
+                        document.getElementById("RegisterTitle").textContent = "Logging in!";
+    
+                        this.setState({closeAnimation: "FormLabel CloseForm"});
+    
+                        break;
+                    case "refreshMessages":
+                        this.props.updateMessages(messageObj.messages.messages)
+                        break;
+                    default:
+                        break;
+                }
+            };
+            this.props.updateWebsocket(client);
+        } catch {
+            this.setState({error: "Cannot connect to server address."})
+            return;
+        }
+        
         this.setState({showWindow: true});
         
         document.getElementById("AuthorizeButton").style.display = "none";
+        document.getElementById("ServerField").style.display = "none";
         document.getElementById("WaitingOnAuthAnimation").style.display = "block";
         document.getElementById("WaitingOnAuthLabel").style.display = "block";
         
@@ -85,42 +135,9 @@ class RegisterForm extends React.Component {
 
         this.updateStatus("Connecting to Server...");
 
-        this.client.onmessage = (message) => {
-            var messageObj = JSON.parse(message.data);
-            switch (messageObj.type) {
-                case "auth":
-                    if (messageObj.content === "false") {
-                        console.log("Unauthorized")
-                        document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                        document.getElementById("WaitingOnAuthLabel").style.display = "none";
-                        this.setState({error: "ERROR: Unauthorized."});
-                    } else {
-                        this.updateStatus("Login authorized! Waiting for messages...");
-                    }
-                    break;
-                case "messageData":
-                    this.updateStatus("Rendering messages...");
-                    
-                    this.props.updateMessages(JSON.parse(messageObj.content).messages);
-
-                    document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                    this.updateStatus("");
-                    document.getElementById("RegisterTitle").textContent = "Logging in!";
-
-                    this.setState({closeAnimation: "FormLabel CloseForm"});
-
-                    break;
-                case "refreshMessages":
-                    this.props.updateMessages(messageObj.messages.messages)
-                    break;
-                default:
-                    break;
-            }
-        };
-        
         this.updateStatus("Relaying API token to Server...");
 
-        this.client.send(JSON.stringify({type: "apiToken", content: this.tokenData.access_token}));
+        client.send(JSON.stringify({type: "apiToken", content: this.tokenData.access_token}));
 
         event.preventDefault();
     }
@@ -147,8 +164,11 @@ class RegisterForm extends React.Component {
                 <p className="MediumTitle" id="RegisterTitle">Login with Discord</p>
                 <p className="ErrorText" id="RegisterErrorLabel">{this.state.error}</p>
                 <p className="SmallTitle" id="WaitingOnAuthLabel" style={{display: "none"}}>Waiting for authorization with discord API...</p>
+                <div style={{display: "flex"}}>
+                    <input className="InputField" type="text" name="" id="ServerField" style={{width: "100%"}} placeholder="Server Address" onChange={this.handleServerField} autoFocus />
+                    <input className="SubmitButton" id="AuthorizeButton" value="Login" type="submit" onClick={this.handleClick} />
+                </div>
                 <div className="loader" id="WaitingOnAuthAnimation">Loading...</div>
-                <input className="SubmitButton" id="AuthorizeButton" value="Login" type="submit" onClick={this.handleClick} />
                 {this.state.showWindow && (<NewWindow url="https://discord.com/api/oauth2/authorize?client_id=725568553989832724&redirect_uri=http%3A%2F%2Flocalhost%3A9000&response_type=code&scope=identify" onBlock={this.handleWindowBlocked} onUnload={this.onCancel} />)}
             </div>
         );
@@ -158,6 +178,7 @@ class RegisterForm extends React.Component {
 RegisterForm.propTypes = {
     updateMessages: PropTypes.func.isRequired,
     updateUserData: PropTypes.func.isRequired,
+    updateWebsocket: PropTypes.func.isRequired,
     websocket: PropTypes.object.isRequired
 }
 
