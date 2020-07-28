@@ -52,5 +52,4 @@ Run ```python3 -m eel app.py public --onefile --noconsole \
             --exclude-module='tk' \
             --exclude-module='_tkinter' \
             --exclude-module='tkinter' \
-            --exclude-module='Tkinter'
-```
+            --exclude-module='Tkinter'```
