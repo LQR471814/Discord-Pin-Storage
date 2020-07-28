@@ -39,11 +39,15 @@ Upon finding that the given user id is in the whitelist the server will authoriz
 ### Windows
 
 Navigate to `desktop-app/`
+
 Install `eel` python package
+
 Run `py -m eel app.py public --noconsole --onefile`
 
 ### MacOSX
 
 Navigate to `desktop-app/`
+
 Install `eel` python package
+
 Run ```python3 -m eel app.py public --onefile --noconsole --exclude-module='FixTk' --exclude-module='tcl' --exclude-module='tk' --exclude-module='_tkinter' --exclude-module='tkinter' --exclude-module='Tkinter'```
