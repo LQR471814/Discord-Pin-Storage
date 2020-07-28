@@ -46,10 +46,4 @@ Run `py -m eel app.py public --noconsole --onefile`
 
 Navigate to `desktop-app/`
 Install `eel` python package
-Run ```python3 -m eel app.py public --onefile --noconsole \
-            --exclude-module='FixTk' \
-            --exclude-module='tcl' \
-            --exclude-module='tk' \
-            --exclude-module='_tkinter' \
-            --exclude-module='tkinter' \
-            --exclude-module='Tkinter'```
+Run ```python3 -m eel app.py public --onefile --noconsole --exclude-module='FixTk' --exclude-module='tcl' --exclude-module='tk' --exclude-module='_tkinter' --exclude-module='tkinter' --exclude-module='Tkinter'```
