@@ -33,3 +33,25 @@ Upon finding that the given user id is in the whitelist the server will authoriz
 1. Run ```server.exe``` once and it will generate a file called ```whitelist.json```, then populate the whitelist array with user ids
 
 2. Run ```server.exe``` again and it should start hosting the server on ```{YOUR PRIVATE IPV4 ADDRESS}``` and port 4000
+
+## Building
+
+### Windows
+
+Navigate to `desktop-app/`
+Install `eel` python package
+Run `py -m eel app.py public --noconsole --onefile`
+
+### MacOSX
+
+Navigate to `desktop-app/`
+Install `eel` python package
+Run ```
+python3 -m eel app.py public --onefile --noconsole \
+            --exclude-module='FixTk' \
+            --exclude-module='tcl' \
+            --exclude-module='tk' \
+            --exclude-module='_tkinter' \
+            --exclude-module='tkinter' \
+            --exclude-module='Tkinter'
+```
