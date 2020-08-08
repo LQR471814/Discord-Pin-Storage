@@ -2,7 +2,7 @@
 
 React + Redux + Flask + Eel Application that stores discord pins BBS style.
 
-#### Note: MacOSX and Linux currently unsupported.
+#### Note: Linux currently unsupported.
 
 ## The Way It Works
 
