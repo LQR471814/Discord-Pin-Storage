@@ -33,3 +33,5 @@ desktop-app/build/
 Server/__pycache__/
 Server/build/
 Server/dist/
+
+.yarn
