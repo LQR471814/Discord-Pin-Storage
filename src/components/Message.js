@@ -1,23 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../css/Message.css';
-import uniqid from 'uniqid';
 
 class Message extends React.Component {
     constructor(props) {
         super(props);
 
-        this.id = uniqid();
-
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
-    
+
     onMouseLeave (event) {
         document.getElementById(this.id).style.display = "none";
     }
-    
+
     onMouseEnter (event) {
         document.getElementById(this.id).style.display = "block";
     }

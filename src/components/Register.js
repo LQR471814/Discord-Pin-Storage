@@ -3,7 +3,6 @@ import "../css/Form.css";
 import "../css/Dot3_Loader.css";
 import NewWindow from 'react-new-window';
 import PropTypes from 'prop-types';
-import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -20,7 +19,7 @@ class RegisterForm extends React.Component {
 
         this.checkingCode = false;
         this.userData = {};
- 
+
         this.handleClick = this.handleClick.bind(this);
         this.handleServerField = this.handleServerField.bind(this);
         this.onCancel = this.onCancel.bind(this);
@@ -39,56 +38,57 @@ class RegisterForm extends React.Component {
     async handleClick(event) {
         event.persist();
 
-        try {
-            var address = "ws://" + this.state.serverAddress.replace("http://", "").replace("ws://", "");
-            var client = new WebSocketClient(address)
-            client.onmessage = (message) => {
-                var messageObj = JSON.parse(message.data);
-                switch (messageObj.type) {
-                    case "auth":
-                        if (messageObj.content === "false") {
-                            console.log("Unauthorized")
-                            document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                            document.getElementById("WaitingOnAuthLabel").style.display = "none";
-                            this.setState({error: "ERROR: Unauthorized."});
-                        } else {
-                            this.updateStatus("Login authorized! Waiting for messages...");
-                        }
-                        break;
-                    case "messageData":
-                        this.updateStatus("Rendering messages...");
-                        
-                        this.props.updateMessages(JSON.parse(messageObj.content).messages);
-    
-                        document.getElementById("WaitingOnAuthAnimation").style.display = "none";
-                        this.updateStatus("");
-                        document.getElementById("RegisterTitle").textContent = "Logging in!";
-    
-                        this.setState({closeAnimation: "FormLabel CloseForm"});
-    
-                        break;
-                    case "refreshMessages":
-                        this.props.updateMessages(messageObj.messages.messages)
-                        break;
-                    default:
-                        break;
-                }
-            };
-            this.props.updateWebsocket(client);
-        } catch {
+        var address = "ws://" + this.state.serverAddress.replace("http://", "").replace("ws://", "");
+        var client = new WebSocket(address)
+
+        client.addEventListener('error', function (e) {
             this.setState({error: "Cannot connect to server address."})
-            return;
-        }
-        
+        }.bind(this))
+
+        client.addEventListener('message', function (message) {
+            var messageObj = JSON.parse(message.data);
+            switch (messageObj.type) {
+                case "auth":
+                    if (messageObj.content === "false") {
+                        console.log("Unauthorized")
+                        document.getElementById("WaitingOnAuthAnimation").style.display = "none";
+                        document.getElementById("WaitingOnAuthLabel").style.display = "none";
+                        this.setState({error: "ERROR: Unauthorized."});
+                    } else {
+                        this.updateStatus("Login authorized! Waiting for messages...");
+                    }
+                    break;
+                case "messageData":
+                    this.updateStatus("Rendering messages...");
+
+                    this.props.updateMessages(JSON.parse(messageObj.content).messages);
+
+                    document.getElementById("WaitingOnAuthAnimation").style.display = "none";
+                    this.updateStatus("");
+                    document.getElementById("RegisterTitle").textContent = "Logging in!";
+
+                    this.setState({closeAnimation: "FormLabel CloseForm"});
+
+                    break;
+                case "refreshMessages":
+                    this.props.updateMessages(messageObj.messages.messages)
+                    break;
+                default:
+                    break;
+            }
+        }.bind(this))
+
+        this.props.updateWebsocket(client);
+
         this.setState({showWindow: true});
-        
+
         document.getElementById("AuthorizeButton").style.display = "none";
         document.getElementById("ServerField").style.display = "none";
         document.getElementById("WaitingOnAuthAnimation").style.display = "block";
         document.getElementById("WaitingOnAuthLabel").style.display = "block";
-        
+
         this.code = {code: ""};
-        
+
         this.checkingCode = true;
         while (this.code.code === "") {
             this.code = await fetch('http://localhost:9000/?fetch', {
@@ -101,11 +101,11 @@ class RegisterForm extends React.Component {
             await new Promise(r => setTimeout(r, 500));
         }
         this.checkingCode = false;
-        
+
         this.setState({showWindow: false});
 
         this.updateStatus("Fetching API token...");
-        
+
         var data = new URLSearchParams();
         data.append('client_id', '725568553989832724');
         data.append('client_secret', '-8yd2RwRURx9GMROrTswXAkPCji-f8nW');
@@ -113,7 +113,7 @@ class RegisterForm extends React.Component {
         data.append('code', this.code.code);
         data.append('redirect_uri', 'http://localhost:9000');
         data.append('scope', 'identify');
-        
+
         await fetch(this.apiEndpoint + "/oauth2/token", {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -141,7 +141,7 @@ class RegisterForm extends React.Component {
 
         event.preventDefault();
     }
-    
+
     handleAnimationEnd(event) {
         document.getElementById("RegisterLabel").style.display = "none";
 

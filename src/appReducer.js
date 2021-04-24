@@ -1,6 +1,5 @@
 import { SET_DISPLAY_MESSAGES, SET_USER_DATA, WEBSOCKET } from './actions';
 import { combineReducers } from 'redux';
-import { w3cwebsocket as WebSocketClient } from 'websocket';
 
 const defaultMessages = {
     messages: [
@@ -175,7 +174,7 @@ function setUserData (state = {}, action) {
     }
 }
 
-function websocketInit (state = {websocket: new WebSocketClient("ws://127.0.0.1")}, action) {
+function websocketInit (state = {websocket: new WebSocket("ws://127.0.0.1")}, action) {
     switch(action.type) {
         case WEBSOCKET:
             return action.websocket;
